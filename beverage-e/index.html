@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>Beverage Preference Data set</title>
+  <style type="text/css">
+  .box {
+    padding: 1em;
+    margin: 1em;
+    border: solid 1px #000;
+  }
+  span {
+    display: inline-block;
+    width: 20em;
+  }
+  </style>
+</head>
+<body>
+  <h1 Align="center">Beverage Preference Data set</h1>
+  <div Align="right">
+  	March 25, 2016<br>
+  	Tohru Iwasaki & Tetsuo Furukawa<br>
+  	Department of Human Intelligence Systems<br>
+  	Kyushu Institute of Technology<br>
+  </div>
+  <div style="margin-top:12px">
+  	This database contains a survey data of beverage preference from 604 respondents.<br>
+  	The data represent the degrees of frequency drinking 14 beverages under 11 different situations.  Thus the entire dataset is represented by a 3-dimensional array, i.e., a tensor of order 3.<br>
+  	<br>
+  	We collected this dataset for our research on nonlinear tensor decomposition in machine learning field. We hope this dataset will be used as a benchmark by the people who are interested in tensor data analysis, relational data analysis, recommendation system, etc.<br>
+  	<br>
+  	This database also contains the preference data of food and leisure collected from the same respondents. Thus this database can be also used for the research on multi-view learning.<br>
+  	<br>
+  	You can use this database under the following conditions.<br>
+  	
+  	<ul>
+      <li>You can use this dataset for research purpose.</li>
+      <li>You must not redistribute without our permission.</li>
+      <li>We are NOT liable for any damages or losses, arising out of or related to your use or inability to use this dataset.</li>
+      <li>We appreciate if you would acknowledge the use of the dataset in publications with citing one of our related publications.</li>
+  	</ul>
+  	
+  	This data is appeared first in the following paper.<br>
+  	<div class="box">
+  	  T. Iwasaki and T. Furukawa<br>
+  	  Neural Networks, Vol.77, pp.107-125, 2016.<br>
+  	  <a href="http://www.sciencedirect.com/science/article/pii/S0893608016000149">doi:10.1016/j.neunet.2016.01.013</a>
+  	</div>
+  </div>
+  
+  <h3 style="margin-bottom:0px">File contents</h3>
+  <a href="BeveragePreferenceDataset.zip">Download</a><br>
+  <br>
+  The archive file contains the following three files.
+  <ul>
+    <li><span>Readme.txt</span>README</li>
+    <li><span>Beverage604.txt</span>Beverage preference data</li>
+    <li><span>Beverage604-side.txt</span>Side information of respondents</li>
+  </ul>
+  
+  This dataset is collected by the questionnaire survey from 604 Japanese respondents. Lazy respondents who responded same scores for all questions were removed in advance, and they are not included in this dataset. There is no missing data in this database.<br>
+  <br>
+  The respondents were asked to answer the frequency of drinking 14 beverages under 11 situations. Thus each respondent is requested to rate 14 x 11 scores, and the entire dataset is represented by an array of (604 respondents) x (14 beverages) x (11 situations). The chosen beverages are commonly sold at supermarkets in Japan, which are usually in plastic bottles.<br>
+  
+  <h3>Data Format of Beverage Preference Data (Beverage604.txt)</h3>
+  The data file "Beverage604.txt" consists of 604 blocks corresponding to the 604 respondents. Each block represents a 14 x 11 matrix, and the numbers are the ratings. 5 means that the respondent drinks the beverage frequently under the situation, and 1 means he/she drinks it rarely. Every row corresponds to a beverage, and columns are situations.<br>
+  <br>
+  For example, the first block is as follows.<br>
+  <pre class="box">
+2 5 1 1 4 5 1 3 2 3 5	# Coke
+2 3 2 2 5 4 1 1 2 3 2	# Soda pop (Seven up, etc.)
+1 2 1 1 3 3 2 4 2 5 4	# Ginger ale
+2 3 1 2 3 3 3 1 2 2 2	# Melon soda
+5 3 3 5 4 3 5 2 1 2 1	# Orange juice
+3 1 3 5 4 3 3 2 1 2 1	# Apple juice
+5 4 4 4 3 1 5 3 5 4 2	# Vegetable juice
+4 1 5 2 1 1 4 3 3 1 3	# Black tea (with sugar)
+1 3 2 2 1 1 2 5 3 5 5	# Oolong tea (Chinese tea)
+5 4 5 4 1 3 4 5 5 1 5	# Green tea (Japanese tea)
+4 1 5 5 2 2 5 4 4 1 4	# Cafe au lait (Coffee with milk)
+1 3 3 3 2 3 3 1 1 2 1	# Lactic drink
+3 5 4 3 5 5 3 5 5 5 4	# Mineral water
+3 5 2 1 5 5 1 2 3 2 2	# Isotonic drink
+</pre>
+  This first block represents the score of the first respondent. Such matrices are repeated 604 times separated by a null line.<br>
+  <br>
+  The 11 situations are in the following order.<br>
+  <pre class="box">
+Column 1: Deskwork or studying
+Column 2: Outdoor work
+Column 3: Brake time or teatime
+Column 4: Indoor leisure (watching video, etc.)
+Column 5: Sports/exercise time
+Column 6: Outdoor leisure
+Column 7: In the car/train
+Column 8: Lunch time
+Column 9: Awakening time
+Column 10: Bedtime 
+Column 11: Party time
+</pre>
+
+  <h3>Data Format of Side Information Data (Beverage604-side.txt)</h3>
+  "Beverage604-side.txt" consists of 604 lines corresponding to the 604 respondents. The side information consists of 19 items. For example, lines 1-5 of the data file correspond to the data of the respondent 1 to 5, which is as follows.<br>
+  <pre class="box">
+1 80 2 5 5 5 5 3 5 5 3 3 1 4 1 3 1 1 5	#Respondent 1
+1 55 2 5 4 4 4 4 5 5 5 5 3 5 2 4 4 5 4	#Respondent 2
+2 57 2 5 4 4 4 3 4 4 4 4 4 1 1 1 3 3 4	#Respondent 3
+2 48 2 5 5 5 5 2 3 5 5 4 3 5 1 2 1 3 3	#Respondent 4
+1 59 1 4 1 1 1 1 4 4 4 4 2 5 5 4 1 1 5	#Respondent 5
+</pre>
+  <ul>
+    <li>Column 1-3: Respondent attributes
+      <ul>
+        <li>Column 1: Gender (1: Male, 2: Female)</li>
+        <li>Column 2: Age</li>
+        <li>Column 3: Married or not (1: Not married, 2: Married)</li>
+      </ul>
+    </li>
+    <li>Column 4-13: Food preference (5 is most preferred, and 1 is least.)
+      <ul>
+        <li>Column 4: Japanese cuisine</li>
+        <li>Column 5: Chinese cuisine</li>
+        <li>Column 6: French cuisine</li>
+        <li>Column 7: Italian cuisine</li>
+        <li>Column 8: Ethnic foods</li>
+        <li>Column 9: Japanese noodle (Soba, Udon)</li>
+        <li>Column 10: Chinese noodle (Ramen)</li>
+        <li>Column 11: Sweets (Western-style)</li>
+        <li>Column 12: Sweets (Japanese-style)</li>
+        <li>Column 13: Alcoholic beverage</li>
+      </ul>
+    </li>
+    <li>Column 14-19: Leisure preference (5 is most preferred, and 1 is least.)
+      <ul>
+        <li>Column 14: Watching TV/Video</li>
+        <li>Column 15: PC games</li>
+        <li>Column 16: Reading</li>
+        <li>Column 17: Sports/exercise</li>
+        <li>Column 18: Outdoor leisure</li>
+        <li>Column 19: Drive</li>
+      </ul>
+    </li>
+  </ul>
+  
+  <h3>Contact address</h3>
+  <p>
+  If you have a question, please contact to<br>
+  <br>
+  Tetsuo Furukawa<br>
+  <a href="mailto:furukawa@brain.kyutech.ac.jp">furukawa@brain.kyutech.ac.jp</a><br>
+  <br>
+  Department of Human Intelligence Systems<br>
+  Kyushu Institute of Technology<br>
+  </p>
+  
+</body>
+</html>

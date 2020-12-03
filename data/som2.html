@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+
+					<p class="chapter8">高階自己組織化マップ（SOM<sup>2</sup> ）</p>
+
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">高階自己組織化マップ（SOM<sup>2</sup> ）とは</p>
+						<span> &nbsp;&nbsp;私たちの研究室では従来の自己組織化マップを一般化したモデルとして<a href="./mnsom.html">mnSOM</a>を提案しました．<br>
+							mnSOMではモジュールの構造を自由に選ぶことができます．
+							 そこでモジュールにSOM自身を用いる場合を考えるとき，
+							それがSOM<sup>2</sup>になります．<br>
+
+                                                  <table align="center">
+			 	         <tr>
+					<td colspan="1" style="text-align:center;">
+						<img src="img/som2/som2_01.jpg" width="300" alt="アーキテクチャ">
+					</td>
+			    	          </tr>
+				          <tr>
+					<td colspan="1" style="text-align:center;padding-bottom:0px;">
+						SOM<sup>2</sup> の構造
+					</td>
+				         </tr>
+		  	               </table>
+
+                                                        &nbsp;&nbsp;さらにはモジュールにSOM<sup>2</sup>を用いればSOM<sup>3</sup>になり，
+							SOM<sup>3</sup>を用いればSOM<sup>4</sup>となるように，
+							SOM<sup>n</sup>といったSOMを高階化したものを考えることができます．
+							 私たちはそれらを高階自己組織化マップとして提案し，
+							パターン認識などの分野で大きな力を発揮するのではないかと期待しています．<br>
+							</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">SOM<sup> 2</sup> のコンセプト</p>
+						<span>&nbsp;&nbsp;ここからの説明のために，モジュールの中に入る従来のSOMを「子SOM」，
+                                                       子SOMをモジュールとして用いるmnSOMを「親SOM」と呼ぶことにします．<br>
+
+                                                <table align="center">
+				         <tr>
+					<td colspan="1" style="text-align:center;">
+						<img src="img/som2/som2_02.jpg" width="490" alt="親と子">
+					</td>
+				        </tr>
+				        <tr>
+					<td colspan="1" style="text-align:center;padding-bottom:0px;">
+						親SOMと子SOM
+					</td>
+				        </tr>
+			               </table>
+
+				&nbsp;&nbsp;SOM<sup> 2</sup>の構造はmnSOMのモジュールにSOM自身を持つもので，
+				それは従来のSOMの参照ベクトルユニットをSOMに置き換えたものになります．<br>
+				&nbsp;&nbsp;mnSOMは用いるモジュールによって獲得することができるマップが変わります．<br>
+				&nbsp;&nbsp;例えば従来のSOMではベクトルデータの関係性を保存したマップになりますし，
+				<a href="./mnsom.html#2">MLP-mnSOM</a>の場合には関数同士の関係性を保存したマップを獲得できます．<br>
+				<br>
+				&nbsp;&nbsp;それではSOM<sup> 2</sup>の場合はどうでしょうか．<br>
+				SOM<sup> 2</sup>のモジュールは従来のSOMですので
+				SOM<sup> 2</sup>がマップする対象は従来のSOMのマップです．<br>
+				&nbsp;&nbsp;つまりSOM<sup> 2</sup>はマップ同士の関係性を保存したマップを獲得します．<br>
+
+
+
+                                                <table align="center">
+				                 <tr>
+					          <td colspan="1" style="text-align:center;">
+						<a href="som2_03.jpg">
+							<img src="img/som2/som2_03.jpg" width="290" alt="入力空間">
+						 </a>
+					        </td>
+					         <td colspan="1" style="text-align:center;">
+						<a href="som2_04.jpg">
+							<img src="img/som2/som2_04.jpg" width="290" alt="マップ空間">
+						 </a>
+					          </td>
+				                  </tr>
+			 	                   <tr>
+					<td colspan="1" style="text-align:center;padding-bottom:0px;">
+						入力空間上でのクラス集合
+					</td>
+					<td colspan="1" style="text-align:center;padding-bottom:0px;">
+						SOM<sup> 2</sup>が獲得するマップ
+					</td>
+				           </tr>
+			               </table>
+     				&nbsp;&nbsp;上の図はSOM<sup> 2</sup>で「入力ベクトル集合の集合」をマップしたものです．<br>
+				&nbsp;&nbsp;ここでそれぞれにラベル付けされた「入力ベクトル集合」を「クラス」と呼びます．
+				左の図がクラス毎に色分けされた入力ベクトルです．<br>
+				&nbsp;&nbsp;右の図のグリッドで分けられたそれぞれの枠が親SOMの1つのモジュールに対応し，
+				その中に描かれている格子状のマップが子SOMのマップです．<br>
+				&nbsp;&nbsp;子SOMの中にはラベルの書かれたものがあり，
+				その子SOMはラベルに対応するクラスをマップしていることが分かります．<br>
+				&nbsp;&nbsp;親SOMの方では距離の近い（似ている）子SOMを近くに配置し，
+				距離の遠い子SOMは遠くに配置されています．<br>
+				&nbsp;&nbsp;また親SOMのマップは連続的に変化し，
+				ラベルの書かれていない子SOMは各クラスのマップを補間しています．<br>
+				<br>
+				&nbsp;&nbsp;このようにSOM<sup> 2</sup>は「マップのマップ」を獲得する装置ということができ，
+				これがSOM<sup> 2</sup>の一番簡単な考え方です．<br>
+				<br>
+			</span>
+
+
+
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">SOM<sup>2</sup>の応用</p>
+
+                                                <span>&nbsp;&nbsp;「マップのマップ」にはどのような利点があるのでしょう．<br>
+				                &nbsp;&nbsp;例えばたくさんの人の顔画像をマップすることを考えてみましょう.
+				                このとき1人の人からは色々な角度から見た顔画像を撮ることができます．<br>
+			  	            &nbsp;&nbsp;たくさんの人から撮った様々な角度の画像を
+				一度に従来のSOMに学習させてもいいかもしれません．<br>
+				&nbsp;&nbsp;このとき獲得できるマップは
+				同じ角度を向いていて似ている顔の人が近くに配置されるマップでしょう．
+				しかしある角度を向いたときには似ている人同士が
+				違う角度の時も似ているとは限りません．<br>
+				&nbsp;&nbsp;つまりこの方法では顔全体で見た時の総合的な類似度の判断が難しくなります．<br>
+				<br>
+				&nbsp;&nbsp;その点でSOM<sup> 2</sup>では少し違います．<br>
+				&nbsp;&nbsp;仮にAさんの様々な角度から見た顔画像をSOMでマップすれば，
+				Aさんの顔画像マップが獲得できます．
+				BさんからはBさんの顔画像マップができます．<br>
+				&nbsp;&nbsp;SOM<sup> 2</sup>ではこのAさんやBさんの顔画像マップが子SOMとなります．
+				そして親SOMでは「それぞれの人物の顔画像マップのマップ」ができるのです．<br>
+				&nbsp;&nbsp;つまり親SOMではAさんとBさんの顔全体を総合的に評価してマップ上に配置します．
+				これによって誰と誰が似ているなどの判断が簡単になるのです．<br>
+				<br>
+				&nbsp;&nbsp;私たちはこのような顔画像分類への応用の他にも，
+				SOM<sup> 2</sup>による移動ロボットの環境地図の獲得，
+				SOMに似たアルゴリズムである<a href="./ng.html">ニューラルガス</a>（NG）をモジュールとして用いた<br>
+				NG×SOMによる文字の分類などへの応用をおこなっています．<br>
+				<br>
+                                 </span>
+	</div>
+
+                                    <a id="pageLink04" name="pageLink04"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo: SOM<sup>2</sup> によるクラス集合のマップ</p>
+
+
+<tr>
+		<td>
+			 <span>
+				Learnボタンで学習開始，もう一度押すとStopです．<br>
+				Resetボタンを押すとクラス集合も変わります．<br>
+			<table align="center">
+				<tr>
+					<td colspan="1" style="text-align:center;">
+						<object hspace="0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="rbf_01" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="580" height="500">
+							<param name="movie" value="img/som2/som2_01.swf" />
+							<param name="quality" value="high" />
+							<param name="bgcolor" value="#ffffff" />
+							<param name="allowScriptAccess" value="always" />
+							<embed src="img/som2/som2_01.swf" name=rbf_01 quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="580" height="500" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+						</object>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" style="text-align:center;padding-bottom:0px;">
+						SOM<sup> 2</sup>によるクラス集合のマップ
+					</td>
+				</tr>
+			</table>
+				このデモではSOM<sup> 2</sup>の子SOMに1次元SOMを用いています．<br>
+				このようにSOM<sup> 2</sup>にも様々なバリエーションを考えることができます．<br>
+				<br>
+			</span>
+		</td>
+	</tr>
+        </table>
+</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink01" title="">高階自己組織化マップ（SOM<sup>2</sup>) とは</a></li>
+						<li><a href="#pageLink02" title="">SOM<sup>2</sup>のコンセプト</a></li>
+						<li><a href="#pageLink03" title="">SOM<sup>2</sup>の応用</a></li>
+						<li><a href="#pageLink04" title="">Demo : SOM<sup>2</sup> によるクラス集合のマップ</a></li>
+
+					</ul>
+				</div><!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>
+

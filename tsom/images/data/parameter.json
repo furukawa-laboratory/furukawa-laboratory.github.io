@@ -1,0 +1,14 @@
+{
+	"input": {
+		"mode1_name": "回答者",
+		"mode2_name": "画像",
+		"mode3_name": "印象",
+		"max_value": 2.78788,
+		"min_value": -2.73333
+	},
+	"parameter": {
+		"unit_num_x": 10,
+		"unit_num_y": 12,
+		"rand_seed": 1234
+	}
+}

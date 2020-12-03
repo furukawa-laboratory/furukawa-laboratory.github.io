@@ -1,0 +1,88 @@
+/* 簡単お知らせビューア用スタイルシート */
+
+body {
+	font-size: 12px;
+	line-height: 140%;
+}
+
+form {
+	margin: 0px;
+}
+a:link, a:visited {
+	color: #336699;
+	text-decoration: none;
+}
+a:hover {
+	color: #CC3366;
+	text-decoration: none;
+}
+div#Layout {
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 20px;
+	padding-left: 20px;
+	width: 640px;
+}
+div#Input th {
+	font-weight: normal;
+	padding: 2px;
+}
+div#Input td {
+	padding: 2px;
+}
+div#Input h1 {
+	font-size: 14px;
+	margin: 0px;
+	text-align: center;
+}
+div#Input h2 {
+	font-size: 12px;
+	border: 1px solid #CCCCCC;
+	margin: 2px;
+	background: #FFFFFF;
+	text-align: center;
+}
+div#Input table {
+	border: 1px solid #CCCCCC;
+	width: 100%;
+}
+div#Input #Err {
+	color: #FF0000;
+}
+div#Data {
+	padding-top: 8px;
+}
+div#Data th {
+	font-weight: normal;
+	padding: 4px;
+}
+div#Data table {
+	width: 100%;
+	border: 1px solid #CCCCCC;
+}
+div#Data .Line table {
+	margin: 0px;
+	border: none;
+}
+div#Data .Line td {
+	padding: 2px 4px;
+	border-bottom: 1px dotted #EEEEEE;
+}
+#text {
+	font-size: 12px;
+}
+
+/* 著作権表記用 */
+div#Copyright {
+	text-align: right;
+	margin-top: 2px;
+	font-size: 10px;
+}
+div#Copyright a:link, div#Copyright a:visited {
+
+	color: #999999;
+	text-decoration: none;
+}
+div#Copyright a:hover {
+	text-decoration: underline;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+					<p class="chapter8">誤差逆伝播法（BP：Backpropagation）</p>
+
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">誤差逆伝播法とは</p>
+						<span>&nbsp;&nbsp;誤差逆伝播法（BP）は多層パーセプトロンの学習に使われる学習アルゴリズムです．ある学習データが与えられたとき，
+						多層パーセプトロンの出力が学習データと一致するように各層の間の結合荷重を修正するという学習法です．<br>&nbsp;&nbsp;
+						多層パーセプトロンは誤差逆伝播法によって教師あり学習をおこない，パターン識別や関数の近似などに用いられます．
+
+						<div align="center">
+						<img src="img/bp/bp_01.jpg" alt="" hspace="" vspace="20" />
+						<h2>関数近似の例</h2><br>
+						</div>
+						</span>
+					</div>
+
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">多層パーセプトロン（MLP：Multi-Layer Perceptron）</p>
+						<span>&nbsp;&nbsp;多層パーセプトロンはユニットが複数の層を構成するように並び，入力から出力への一方向へのみ信号の伝達がおこなわれるネットワークです．このようなネットワークを階層型ニューラルネットワークと呼び，多層パーセプトロンは階層型ニューラルネットワークの代表的なネットワークです．	階層型ニューラルネットワークには他にもRBFネットワークなどがあります．
+						<div align="center">
+						<img src="img/bp/bp_02.jpg" alt="" hspace="" vspace="20" />
+						<h2>多層パーセプトロン</h2><br>
+						</div>
+						それぞれの層を構成する各ユニットは結合荷重を通して前の層からの入力を受け取ります．ユニットにつながる全ての入力と入力に対応する結合荷重の積の総和を出力関数に通したものがそのユニットの出力となります．また最終層のユニットの出力がネットワークの出力です．中間層ユニットの出力関数には微分可能な非線形関数が用いられ，通常ロジスティック関数や双曲線正接関数（tanh）などを使用します．
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">多層パーセプトロンの学習</p>
+						<span>&nbsp;&nbsp;
+						誤差逆伝播法による学習は与えられた教師信号とネットワークの出力の誤差が小さくなるように各ユニットの結合荷重を更新します．このとき最終層ユニットの出力の誤差が最初の層のユニットの学習にまで影響を与えます．先ほど信号は一方向にのみ伝達するといいましたが，学習時には誤差信号が最終層から最初の層まで逆伝播します．つまり誤差逆伝播というわけです．
+						<br>&nbsp;&nbsp;
+						アルゴリズムの詳細ついて分かりやすく説明してくれているサイトは数多くあります．興味をもたれた方は詳しく勉強してみることをお勧めします．
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink04" name="pageLink04"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo：関数近似シミュレーション</p>
+						<span>&nbsp;&nbsp;Learnボタンで学習開始，もう一度押すとStopです．<br>
+						&nbsp;&nbsp;Resetボタンを押すと入力分布も変わります．<br>
+						<table align="center">
+							<tr>
+								<td colspan="1" style="text-align:center;">
+									<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="bp_01" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="300" height="340">
+										<param name="movie" value="bp_01.swf" />
+										<param name="quality" value="high" />
+
+										<param name="bgcolor" value="#ffffff" />
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/bp/bp_01.swf" name=som_online quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="300" height="340" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+									</object>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									MLPの誤差逆伝播法による関数近似
+								</td>
+							</tr>
+						</table>
+						&nbsp;&nbsp;複雑なデータの場合，学習が遅くなることがあります．また複雑すぎると学習が進まないこともあります．
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink01" title="">誤差逆伝播法とは</a></li>
+						<li><a href="#pageLink02" title="">多層パーセプトロン（MLP：Multi-Layer Perceptron）</a></li>
+						<li><a href="#pageLink03" title="">多層パーセプトロンの学習</a></li>
+						<li><a href="#pageLink04" title="">デモ：関数近似シミュレーション</a></li>
+					</ul>
+				</div><!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>

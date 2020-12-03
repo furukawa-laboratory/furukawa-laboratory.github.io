@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+
+div#wrapper{
+
+	margin: 0 auto;
+	text-align: left;
+	width: 100%;
+	line-height: 1.8;
+}
+
+div#wrapBg{
+	border-top: 1px solid #ccc;
+	
+}
+
+div#header{
+	width: 960px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+div#header h1{
+	font-weight: bold;
+	float: left;
+	width: 300px;
+	padding: 26px 0 0 23px;
+	font-size: 25px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #504F4F;
+	text-shadow:0px -1px 1px #777;
+}
+
+div#header ul#gNavi{
+	float: right;
+	margin-bottom: 0;
+	padding-bottom: 0;		
+}
+
+ul#gNavi li{
+	display: block;
+	float: right;
+	border-left: 1px solid #dedede;
+}
+
+ul#gNavi li.firstItem{
+	border-right: 1px solid #dedede;
+}
+ul#gNavi li img{
+	vertical-align: bottom;
+}
+
+ul#gNavi li.lastItem{
+	margin-left: 0;
+}
+
+div#header ul#gNavi li a{
+	font-size: 13px;
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+	padding: 30px 13px;
+}
+
+div#header ul#gNavi li a:hover{
+	background: url(../img/bg_gnavi.gif) repeat-x bottom left;
+}
+
+div#footer{
+	border-top: 1px #dedede solid;
+	margin-top: 45px;
+	text-align: center;
+
+}
+
+div#footer p#copyright{
+	text-align: center;
+	padding: 10px;
+	color: #000;
+	font-family:"lucida grande", tahoma, verdana, arial, sans-serif!important;
+}

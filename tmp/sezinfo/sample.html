@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>簡単お知らせビューア サンプル</title>
+<style type="text/css">
+<!--
+body {
+	font-size: 12px;
+	line-height: 140%;
+}
+h1 {
+	font-size: 12px;
+	margin: 0px;
+	padding-bottom: 3px;
+	color: #3366CC;
+	line-height: normal;
+}
+h2 {
+	font-size: 12px;
+	margin: 0px;
+	padding-top: 5px;
+}
+p {
+	margin: 0px;
+	padding-bottom: 10px;
+}
+div#INFO {
+	width: 400px;
+	height: 160px;
+	overflow: auto;
+	padding: 5px;
+	border: 1px solid #3366CC;
+}
+-->
+</style>
+</head>
+<body>
+<h1>■簡単お知らせビューア サンプル</h1>
+<div id="INFO">
+<script language="JavaScript" src="data/sample.js"></script>
+<script language="JavaScript" type="text/javascript"><!--
+for (i=0; i<info.length; i++) {
+    var date = info[i][2].split("/");
+    document.write('<p><strong>'+info[i][0]+'</strong> ('
+    +date[0]+'年'+date[1]+'月'+date[2]+'日)<br />'
+    +info[i][1]+'</p>');
+}
+//--></script>
+<noscript><font color="red">JavaScriptを有効にして下さい</font></noscript>
+</div>
+<h2><a href="sezinfo.php">入力画面へ</a></h2>
+</body>
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+<link rel="StyleSheet" type="text/css" href="css/gmm.css"/>
+<script type="text/javascript">
+<!--
+//=================
+// グローバル変数
+//=================
+var g_canvas;
+var g_context;
+var g_state = new Array(0, 0);	// ボタンの状態
+var g_gmm;	// GMMインスタンス
+var g_x;	// データ
+var g_color	// コンポーネントカラー
+
+//===============
+// 目盛りセット
+//===============
+function TicksSet(context)
+{
+	var offset = 30.0;	// 目盛り分
+	var plot_range = 500.0;
+	var canvas_range = plot_range + offset;
+	var ticks = new Array("-7.5", "-5.0", "-2.5", "0", "2.5", "5.0", "7.5");
+	context.save();
+	context.font = "16px 'Calibri'";
+
+	//===========
+	// 枠線
+	//===========
+	context.beginPath();
+	context.moveTo(offset, 0);
+	context.lineTo(canvas_range, 0);
+	context.lineTo(canvas_range, plot_range);
+	context.lineTo(offset, plot_range);
+	context.closePath();
+
+	var delta = plot_range / 8.0;
+	//=========
+	// 上辺
+	//=========
+	for(var i=1; i<=7; i++) {
+		context.moveTo(offset+delta*i, 0);
+		if(i%2 == 0) {
+			context.lineTo(offset+delta*i, 10);
+		}
+		else {
+			context.lineTo(offset+delta*i, 5);
+		}
+	}
+	//=========
+	// 下辺
+	//=========
+	context.textAlign = "center";
+	for(var i=1; i<=7; i++) {
+		if(i%2 == 0) {
+			context.moveTo(offset+delta*i, plot_range-10);
+		}
+		else {
+			context.moveTo(offset+delta*i, plot_range-5);
+		}
+		context.lineTo(offset+delta*i, plot_range);
+		context.fillText(ticks[i-1], offset+delta*i, plot_range+20);
+	}
+	//=========
+	// 左辺
+	//=========
+	context.textAlign = "right";
+	for(var i=1; i<=7; i++) {
+		context.moveTo(offset, delta*i);
+		if(i%2 == 0) {
+			context.lineTo(offset+10, delta*i);
+		}
+		else {
+			context.lineTo(offset+5, delta*i);
+		}
+		context.fillText(ticks[ticks.length-i], offset-4, delta*i+4);	// マジックナンバー4: 左辺の目盛りをきれいにセットするための補正値
+	}
+	//=========
+	// 右辺
+	//=========
+	for(var i=1; i<=7; i++) {
+		if(i%2 == 0) {
+			context.moveTo(offset+(plot_range-10), delta*i);
+		}
+		else {
+			context.moveTo(offset+(plot_range-5), delta*i);
+		}
+		context.lineTo(offset+plot_range, delta*i);
+	}
+	context.stroke();
+	context.restore();
+}
+
+//=============
+// 座標変換
+//=============
+function CoordinateTransform(x)
+{
+	var tx;
+
+	// スケール変換
+	tx = x * (500.0 / 20.0);
+
+	// 座標変換
+	tx -= -500.0 / 2;
+
+	return tx;
+}
+
+//===================
+// ガウス乱数の生成
+//===================
+function CreateData(num)
+{
+	var x = new Array(num);
+	for(var i=0; i<num; i++) {
+		x[i] = new Array(2);
+	}
+
+	for(var i=0; i<num; i++) {
+		var a = 1 - Math.random();	// 0 < a <= 1
+		var b = Math.random();	// 0 <= b < 1
+		x[i][0] = Math.sqrt(-2*Math.log(a)) * Math.sin(2*Math.PI*b);
+		x[i][1] = Math.sqrt(-2*Math.log(a)) * Math.cos(2*Math.PI*b);
+	}
+
+	return x;
+}
+
+//=============================
+// HSV値からRGB値への変換
+//=============================
+function HSVtoRGB(h, s, v)
+{
+	if(s == 0.0) {
+		this.r = v;	this.g = v; this.b = v;
+	}
+	else {
+		var I = Math.floor(h / 60);
+		var F = (h / 60) - I;
+
+		var x = v * (1 - s);
+		var y = v * (1 - s * F);
+		var z = v * (1 - s * (1 - F));
+
+		switch(I % 6) {
+			case 0: this.r = v; this.g = z; this.b = x; break;
+			case 1: this.r = y; this.g = v; this.b = x; break;
+			case 2: this.r = x; this.g = v; this.b = z; break;
+			case 3: this.r = x; this.g = y; this.b = v; break;
+			case 4: this.r = z; this.g = x; this.b = v; break;
+			case 5: this.r = v; this.g = x; this.b = y; break;
+		}
+	}
+}
+
+//========================================================================
+// データを描画するときの色を潜在変数の事後確率（負担率）に応じて決定する
+//========================================================================
+function CreateColor(component_num)
+{
+	//=======================================================
+	// ・HSV色空間でH（色相）を変えて色を決定する
+	// ・Hは0～360で定義される
+	// ・単位円上にコンポーネント数分の代表点をとり，
+	// 　代表点の座標と負担率（事後確率）の重み付き和で
+	// 　データの色を決定する
+	//=======================================================
+
+	//============================================================
+	// コンポーネントが偶数であれば
+	// 代表点の対角線上に位置する混合色が作れないため，
+	// 代表点を意図的に奇数個（コンポーネント数＋1）とる
+	//============================================================
+	var rep_num;
+	if((component_num%2) == 0) {
+		rep_num = component_num + 1;
+	}
+	else {
+		rep_num = component_num;
+	}
+
+	//===================================
+	// 単位円上の代表点の座標を計算
+	//===================================
+	var cdnt = new Array(rep_num);
+	for(var i=0; i<rep_num; i++) {
+		cdnt[i] = new Array(2);
+	}
+	var component_color_h = new Array(component_num);
+	var theta = (2 * Math.PI) / rep_num;
+	for(var i=0; i<component_num; i++) {
+		cdnt[i][0] = Math.cos(theta * i);
+		cdnt[i][1] = Math.sin(theta * i);
+		// コンポーネントの色は代表点をそのまま使う
+		component_color_h[i] = theta * i;
+	}
+
+	//=================================
+	// コンポーネントの色を決定
+	//=================================
+	this.component = new Array(component_num);
+	this.table = new Array(component_num);
+	for(var i=0; i<component_num; i++) {
+		component_color_h[i] += Math.PI;
+		component_color_h[i] = (component_color_h[i] * 180) / Math.PI + 60;
+		if(component_color_h[i] >= 360) component_color_h[i] -= 360;
+
+		var component_color = new HSVtoRGB(component_color_h[i], 1.0, 1.0);
+		this.component[i] = "rgba(" + Math.floor(255*component_color.r) + "," + Math.floor(255*component_color.g) + "," + Math.floor(255*component_color.b) + ",1.0)";
+		this.table[i] = "rgba(" + Math.floor(255*component_color.r) + "," + Math.floor(255*component_color.g) + "," + Math.floor(255*component_color.b) + ",0.5)";
+	}
+
+	//=======================================================
+	// 代表点の座標と潜在変数の事後確率（負担率）の重み付き和で
+	// データの色を決定する
+	//=======================================================
+	this.data_color_set = function(r) {
+		var data_color_h = new Array(r.length);
+		this.data = new Array(r.length);
+		for(var i=0; i<r.length; i++) {
+			var x = 0, y = 0;
+			for(var j=0; j<component_num; j++) {
+				x += cdnt[j][0] * r[i][j];
+				y += cdnt[j][1] * r[i][j];
+			}
+			// 逆正接からデータの色の角度を決定
+			// 逆正接は-π～πの範囲で求まるので，
+			// πを足して0～2πに変換
+			data_color_h[i] = Math.atan2(y, x) + Math.PI;
+			// 度数法に変換し0～360で表現
+			// +60は好みの色を使いたかったから
+			data_color_h[i] = (data_color_h[i] * 180) / Math.PI + 60;
+			// 360を超えたら0から
+			if(data_color_h[i] >= 360) data_color_h[i] -= 360;
+
+			var data_color = new HSVtoRGB(data_color_h[i], 1.0, 1.0);
+			this.data[i] = "rgba(" + Math.floor(255*data_color.r) + "," + Math.floor(255*data_color.g) + "," + Math.floor(255*data_color.b) + ",1.0)";
+		}
+	}
+}
+
+//===========
+// プロット
+//===========
+function Plot(context, x, radius, color)
+{
+	context.save();
+	context.beginPath();
+	for(var i=0; i<x.length; i++) {
+		context.arc(30.0+CoordinateTransform(x[i][0]), CoordinateTransform(-x[i][1]), radius, 0, 2*Math.PI, false);
+		context.closePath();
+	}
+	context.fillStyle = color;
+	context.fill();
+	context.restore();
+}
+
+function DataPlot(context, x, radius, color)
+{
+	context.save();
+	context.beginPath();
+	context.arc(30.0+CoordinateTransform(x[0]), CoordinateTransform(-x[1]), radius, 0, 2*Math.PI, false);
+	context.closePath();
+	context.fillStyle = color;
+	context.fill();
+	context.restore();
+}
+
+//====================
+// 等高線を描画
+//====================
+function DrawContour(context, x, color)
+{
+	context.save();
+	context.beginPath();
+	context.lineWidth = 3;
+	context.moveTo(30.0+CoordinateTransform(x[0][0]), CoordinateTransform(-x[0][1]));
+	for(var i=1; i<x.length; i++) {
+		context.lineTo(30.0+CoordinateTransform(x[i][0]), CoordinateTransform(-x[i][1]));
+	}
+	context.closePath();
+	context.strokeStyle = color;
+	context.stroke();
+	context.restore();
+}
+
+//============
+// 初期化
+//============
+function Initialize(canvas_id)
+{
+	g_canvas = document.getElementById(canvas_id);
+	if(g_canvas.getContext) {
+		g_context = g_canvas.getContext('2d');
+	}
+	g_context.clearRect(0, 0, g_canvas.width, g_canvas.height);
+	TicksSet(g_context);
+
+	var create_value = document.getElementById('create_value');
+	create_value.innerHTML = "<legend>生成した値（理想値）</legend>";
+	var estimated_value = document.getElementById('estimated_value');
+	estimated_value.innerHTML = "<legend>推定した値</legend>";
+	var tbl = document.createElement('table');
+	var row = document.createElement('tr');
+	var cell = document.createElement('td');
+	var string = "コンポーネント";
+	string += "<p>混合係数π : <br>" + "none" + "</p>";
+	string += "<p>平均μ : <br>(" + "none" + "　" + "none" + ")</p>";
+	string += "<p>分散共分散行列Σ : <br>(" + "none" + "　" + "none" + ")<br>"
+	          + "(" + "none" + "　" + "none" + ")</p>";
+	cell.innerHTML = string;
+	row.appendChild(cell);
+	tbl.appendChild(row);
+	tbl.width = 130;
+	tbl.setAttribute('border', '2');
+	create_value.appendChild(tbl);
+	estimated_value.appendChild(tbl.cloneNode(true));
+}
+
+//==============
+// 線形変換
+//==============
+function Transform(x, x_mean, y_mean, x_var, y_var, cor_coe)
+{
+	// 分散共分散行列を定義
+	var var_matrix = new Array(4);
+	var_matrix[0] = x_var;			var_matrix[1] = Math.sqrt(x_var)*Math.sqrt(y_var)*cor_coe;
+	var_matrix[2] = var_matrix[1];	var_matrix[3] = y_var;
+	// 固有値を求める
+	var a = 1;
+	var b = -(var_matrix[0] + var_matrix[3]);
+	var c = var_matrix[0] * var_matrix[3] - var_matrix[1] * var_matrix[2];
+	this.lambda = new Array(2);
+	// 分散共分散行列は半正定値対称行列なので、解は非負
+	this.lambda[0] = 0.5 * (-b + parseFloat(Math.sqrt(b*b-4*a*c).toFixed(10)));	// 解の大きい方
+	this.lambda[1] = 0.5 * (-b - parseFloat(Math.sqrt(b*b-4*a*c).toFixed(10)));	// 解の小さい方
+	// 固有ベクトルを求める
+	var p = new Array(2);
+	for(var i=0; i<2; i++) {
+		p[i] = new Array(2);
+	}
+	// 固有値が重解を持ち、共分散が0の場合
+	if((this.lambda[0]==this.lambda[1]) && (var_matrix[1]==0)) {
+		p[0][0] = 1;	p[0][1] = 0;
+		p[1][0] = 0;	p[1][1] = 1;
+	}
+	else {
+		if((var_matrix[0]==this.lambda[0]) && (var_matrix[2]==0)) {
+			// 固有値lambda[0]に対する固有ベクトル
+			p[0][0] = var_matrix[0] - this.lambda[1];
+			p[0][1] = var_matrix[2];
+			var norm = Math.sqrt(p[0][0]*p[0][0]+p[0][1]*p[0][1]);
+			p[0][0] /= norm;
+			p[0][1] /= norm;
+			// 固有値lambda[1]に対する固有ベクトル
+			p[1][0] = var_matrix[1];
+			p[1][1] = var_matrix[3] - this.lambda[0];
+			norm = Math.sqrt(p[1][0]*p[1][0]+p[1][1]*p[1][1]);
+			p[1][0] /= norm;
+			p[1][1] /= norm;
+		}
+		else {
+			// 固有値lambda[0]に対する固有ベクトル
+			p[0][0] = var_matrix[1];
+			p[0][1] = var_matrix[3] - this.lambda[1];
+			var norm = Math.sqrt(p[0][0]*p[0][0]+p[0][1]*p[0][1]);
+			p[0][0] /= norm;
+			p[0][1] /= norm;
+			// 固有値lambda[1]に対する固有ベクトル
+			p[1][0] = var_matrix[0] - this.lambda[0];
+			p[1][1] = var_matrix[2];
+			norm = Math.sqrt(p[1][0]*p[1][0]+p[1][1]*p[1][1]);
+			p[1][0] /= norm;
+			p[1][1] /= norm;
+		}
+	}
+
+	// 変換行列Aを定義
+	var A = new Array(4);
+	A[0] = p[0][0] * Math.sqrt(this.lambda[0]);	A[1] = p[1][0] * Math.sqrt(this.lambda[1]);
+	A[2] = p[0][1] * Math.sqrt(this.lambda[0]);	A[3] = p[1][1] * Math.sqrt(this.lambda[1]);
+
+	// 変換
+	this.tx = new Array(x.length);
+	for(var i=0; i<x.length; i++) {
+		this.tx[i] = new Array(2);
+	}
+	for(var i=0; i<x.length; i++) {
+		this.tx[i][0] = A[0]*x[i][0] + A[1]*x[i][1];
+		this.tx[i][1] = A[2]*x[i][0] + A[3]*x[i][1];
+	}
+
+	this.offset_tx = new Array(x.length);
+	for(var i=0; i<x.length; i++) {
+		this.offset_tx[i] = new Array(2);
+	}
+	for(var i=0; i<x.length; i++) {
+		this.offset_tx[i][0] = A[0]*x[i][0] + A[1]*x[i][1] + x_mean;
+		this.offset_tx[i][1] = A[2]*x[i][0] + A[3]*x[i][1] + y_mean;
+	}
+}
+
+//=======================
+// 入力された値をチェック
+//=======================
+function CheckParam(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num)
+{
+	// NaNが含まれていないか
+	var f_NaN = 0;
+	for(var i=0; i<num.length; i++) {
+		if(isNaN(num[i])) f_NaN = 1;
+	}
+	for(var i=0; i<x_mean.length; i++) {
+		if(isNaN(x_mean[i])) f_NaN = 1;
+	}
+	for(var i=0; i<y_mean.length; i++) {
+		if(isNaN(y_mean[i])) f_NaN = 1;
+	}
+	for(var i=0; i<x_var.length; i++) {
+		if(isNaN(x_var[i])) f_NaN = 1;
+	}
+	for(var i=0; i<y_var.length; i++) {
+		if(isNaN(y_var[i])) f_NaN = 1;
+	}
+	for(var i=0; i<cor_coe.length; i++) {
+		if(isNaN(cor_coe[i])) f_NaN = 1;
+	}
+	if(isNaN(component_num)) f_NaN = 1;
+
+	// すべての変数の要素数は等しいか
+	var f_num = 0;
+	if(!((num.length==x_mean.length) && (num.length==y_mean.length) && (num.length==x_var.length) && (num.length==y_var.length) && (num.length==cor_coe.length))) f_num = 1;
+
+	// 不正な値が入力されていないか
+	var f_wrong = 0;
+	for(var i=0; i<num.length; i++) {
+		if(num[i] <= 0) f_wrong = 1;
+	}
+	for(var i=0; i<x_var.length; i++) {
+		if(x_var[i] <= 0) f_wrong = 1;
+	}
+	for(var i=0; i<y_var.length; i++) {
+		if(y_var[i] <= 0) f_wrong = 1;
+	}
+	for(var i=0; i<cor_coe.length; i++) {
+		if((cor_coe[i]<-1) || (1<cor_coe[i])) f_wrong = 1;
+	}
+	if(component_num <= 0) f_wrong = 1;
+
+	if((f_NaN==0) && (f_num==0) && (f_wrong==0)) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
+}
+
+//========================
+// ガウス乱数の生成・描画
+//========================
+function MultiGaussPlot(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num)
+{
+	var x = new Array(num.length);
+	for(var i=0; i<num.length; i++) {
+		x[i] = CreateData(num[i]);
+		x[i] = new Transform(x[i], x_mean[i], y_mean[i], x_var[i], y_var[i], cor_coe[i]);
+		Plot(g_context, x[i].offset_tx, 2, 'rgba(127,127,127,1.0)');
+	}
+
+	// 生成したデータを統合してグローバル変数に代入
+	var sum = 0;
+	for(var i=0; i<num.length; i++) {
+		sum += num[i];
+	}
+	g_x = new Array(sum);
+	for(var i=0,k=0; i<num.length; i++) {
+		for(var j=0; j<num[i]; j++,k++) {
+			g_x[k] = x[i].offset_tx[j];
+		}
+	}
+}
+
+//============================
+// 生成した値（理想値）を描画
+//============================
+function WriteCreateParam(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num)
+{
+	// 混合係数と共分散を計算
+	var pi = new Array(num.length);
+	var covar = new Array(num.length);
+	var sum = 0;
+	for(var i=0; i<num.length; i++) {
+		sum += num[i];
+	}
+	for(var i=0; i<num.length; i++) {
+		pi[i] = num[i] / sum;
+		covar[i] = Math.sqrt(x_var[i])*Math.sqrt(y_var[i])*cor_coe[i];
+	}
+
+	// 描画
+	var create_value = document.getElementById('create_value');
+	create_value.innerHTML = "<legend>生成した値（理想値）</legend>";
+	var tbl = document.createElement('table');
+	var row = document.createElement('tr');
+	for(var i=0; i<num.length; i++) {
+		var cell = document.createElement('td');
+		var string = "コンポーネント" + i;
+		string += "<p>混合係数π : <br>" + pi[i].toFixed(3) + "</p>";
+		string += "<p>平均μ : <br>(" + x_mean[i].toFixed(3) + "　" + y_mean[i].toFixed(3) + ")</p>";
+		string += "<p>分散共分散行列Σ : <br>(" + x_var[i].toFixed(3) + "　" + covar[i].toFixed(3) + ")<br>"
+		          + "(" + covar[i].toFixed(3) + "　" + y_var[i].toFixed(3) + ")</p>";
+		cell.innerHTML = string;
+		row.appendChild(cell);
+	}
+	tbl.appendChild(row);
+	tbl.width = 130 * num.length;
+	tbl.setAttribute('border', '2');
+	create_value.appendChild(tbl);
+}
+
+//======================
+// 推定した値を描画
+//======================
+function WriteEstimatedParam(pi, mu, sigma)
+{
+	// 描画
+	var estimated_value = document.getElementById('estimated_value');
+	estimated_value.innerHTML = "<legend>推定した値</legend>";
+	var tbl = document.createElement('table');
+	var row = document.createElement('tr');
+	for(var i=0; i<pi.length; i++) {
+		var cell = document.createElement('td');
+		var string = "コンポーネント" + i;
+		string += "<p>混合係数π : <br>" + pi[i].toFixed(3) + "</p>";
+		string += "<p>平均μ : <br>(" + mu[i][0].toFixed(3) + "　" + mu[i][1].toFixed(3) + ")</p>";
+		string += "<p>分散共分散行列Σ : <br>(" + sigma[i][0].toFixed(3) + "　" + sigma[i][1].toFixed(3) + ")<br>"
+		          + "(" + sigma[i][2].toFixed(3) + "　" + sigma[i][3].toFixed(3) + ")</p>";
+		cell.innerHTML = string;
+		cell.style.background = g_color.table[i];
+		row.appendChild(cell);
+	}
+	tbl.appendChild(row);
+	tbl.width = 130 * pi.length;
+	tbl.setAttribute('border', '2');
+	estimated_value.appendChild(tbl);
+}
+
+//=======================
+// 逆行列の計算
+//=======================
+function Inverse(x)
+{
+	var x_inv = new Array(2);
+	for(var i=0; i<2; i++) {
+		x_inv[i] = new Array(2);
+	}
+
+	var ad_bc = x[0] * x[3] - x[1] * x[2];
+
+	x_inv[0][0] = x[3] / ad_bc;
+	x_inv[0][1] = -x[1] / ad_bc;
+	x_inv[1][0] = -x[2] / ad_bc;
+	x_inv[1][1] = x[0] / ad_bc;
+
+	return x_inv;
+}
+
+//======================
+// 行列式の計算
+//======================
+function Determinant(x)
+{
+	return (x[0] * x[3]) - (x[1] * x[2]);
+}
+
+//===================
+// 混合ガウスモデル
+//===================
+function GMM(component_num, x)
+{
+	// 潜在変数の事後確率（負担率）を初期化
+	this.r = new Array(x.length);
+	for(var i=0; i<x.length; i++) {
+		this.r[i] = new Array(component_num);
+	}
+	for(var i=0; i<x.length; i++) {
+		for(var j=0; j<component_num; j++) {
+			this.r[i][j] = 1.0 / component_num;
+		}
+	}
+
+	// 混合係数、平均、分散共分散行列をそれぞれ初期化
+	this.pi = new Array(component_num);
+	this.mu = new Array(component_num);
+	for(var i=0; i<component_num; i++) {
+		this.mu[i] = new Array(2);
+	}
+	this.sigma = new Array(component_num);
+	for(var i=0; i<component_num; i++) {
+		this.sigma[i] = new Array(4);
+	}
+	for(var i=0; i<component_num; i++) {
+		this.pi[i] = 1.0 / component_num;
+		this.mu[i][0] = Math.random()*2 - 1;
+		this.mu[i][1] = Math.random()*2 - 1;
+		this.sigma[i][0] = 1;
+		this.sigma[i][1] = 0;
+		this.sigma[i][2] = 0;
+		this.sigma[i][3] = 1;
+	}
+
+	this.e_step = function() {
+		var x_mu = new Array(2);
+		for(var i=0; i<x.length; i++) {
+			for(var j=0; j<component_num; j++) {
+				x_mu[0] = x[i][0] - this.mu[j][0];
+				x_mu[1] = x[i][1] - this.mu[j][1];
+				var sigma_inv = Inverse(this.sigma[j]);
+				var quadratic = 0;
+				for(var k=0; k<2; k++) {
+					for(var l=0; l<2; l++) {
+						quadratic += (sigma_inv[k][l] * x_mu[k] * x_mu[l]);
+					}
+				}
+				quadratic *= -0.5;
+				this.r[i][j] = this.pi[j] * Math.exp(quadratic) / (2.0 * Math.PI * Math.sqrt(Determinant(this.sigma[j])));
+			}
+		}
+
+		// コンポーネント数に対して正規化
+		for(var i=0; i<x.length; i++) {
+			var sum = 0;
+			for(var j=0; j<component_num; j++) {
+				sum += this.r[i][j];
+			}
+			for(var j=0; j<component_num; j++) {
+				this.r[i][j] /= sum;
+			}
+		}
+	}
+
+	this.m_step = function() {
+		var N = new Array(component_num);
+		for(var i=0; i<component_num; i++) {
+			N[i] = 0;
+		}
+		for(var i=0; i<component_num; i++) {
+			for(var j=0; j<x.length; j++) {
+				N[i] += this.r[j][i];
+			}
+		}
+
+		// 混合係数πの更新
+		for(var i=0; i<component_num; i++) {
+			this.pi[i] = N[i] / x.length;
+		}
+
+		// 平均μの更新
+		for(var i=0; i<component_num; i++) {
+			this.mu[i][0] = 0;
+			this.mu[i][1] = 0;
+			for(var j=0; j<x.length; j++) {
+				this.mu[i][0] += (this.r[j][i] * x[j][0]);
+				this.mu[i][1] += (this.r[j][i] * x[j][1]);
+			}
+			this.mu[i][0] /= N[i];
+			this.mu[i][1] /= N[i];
+		}
+
+		// 分散共分散行列Σの更新
+		var x_mu = new Array(2);
+		for(var i=0; i<component_num; i++) {
+			var sum = new Array(0,0,0,0);
+			for(var j=0; j<x.length; j++) {
+				x_mu[0] = x[j][0] - this.mu[i][0];
+				x_mu[1] = x[j][1] - this.mu[i][1];
+				sum[0] += (this.r[j][i] * x_mu[0] * x_mu[0]);
+				sum[1] += (this.r[j][i] * x_mu[0] * x_mu[1]);
+				sum[2] += (this.r[j][i] * x_mu[1] * x_mu[0]);
+				sum[3] += (this.r[j][i] * x_mu[1] * x_mu[1]);
+			}
+			this.sigma[i][0] = sum[0] / N[i];
+			this.sigma[i][1] = sum[1] / N[i];
+			this.sigma[i][2] = sum[2] / N[i];
+			this.sigma[i][3] = sum[3] / N[i];
+		}
+	}
+}
+
+//===================================
+// 標準偏差1倍の範囲を等高線で描画
+//===================================
+function ContourPlot(mu, sigma)
+{
+	var sample = 51;	// 解像度
+	var delta = 1.0 / (sample - 1);
+	var cdnt = new Array(sample);
+
+	for(var i=0; i<sample; i++) {
+		cdnt[i] = delta * i;
+	}
+
+	// 半径1の正円を定義
+	var circle = new Array(sample);
+	for(var i=0; i<sample; i++) {
+		circle[i] = new Array(2);
+	}
+	for(var i=0; i<sample; i++) {
+		circle[i][0] = Math.cos(2 * Math.PI * cdnt[i]);
+		circle[i][1] = Math.sin(2 * Math.PI * cdnt[i]);
+	}
+	for(var i=0; i<mu.length; i++) {
+		var ellipse = new Transform(circle, mu[i][0], mu[i][1], sigma[i][0], sigma[i][3], sigma[i][1]/(Math.sqrt(sigma[i][0])*Math.sqrt(sigma[i][3])));
+		var contour = new Array(ellipse.tx.length);
+		for(var j=0; j<ellipse.tx.length; j++) {
+			contour[j] = new Array(2);
+		}
+		for(var j=0; j<ellipse.tx.length; j++) {
+			contour[j][0] = Math.sqrt(ellipse.lambda[0]) * ellipse.tx[j][0] + mu[i][0];
+			contour[j][1] = Math.sqrt(ellipse.lambda[0]) * ellipse.tx[j][1] + mu[i][1];
+		}
+		DrawContour(g_context, contour, g_color.component[i]);
+	}
+}
+
+//=========================================
+// 入力された値をチェックし、ガウス乱数を生成・描画
+//=========================================
+function SetParam(state)
+{
+	if(g_state[0] != state) {
+		var in_num = document.getElementById('num');
+		var in_x_mean = document.getElementById('x_mean');
+		var in_y_mean = document.getElementById('y_mean');
+		var in_x_var = document.getElementById('x_var');
+		var in_y_var = document.getElementById('y_var');
+		var in_cor_coe = document.getElementById('cor_coe');
+		var in_component_num = document.getElementById('component_num');
+		var num = in_num.value.split(',');
+		var x_mean = in_x_mean.value.split(',');
+		var y_mean = in_y_mean.value.split(',');
+		var x_var = in_x_var.value.split(',');
+		var y_var = in_y_var.value.split(',');
+		var cor_coe = in_cor_coe.value.split(',');
+		var component_num;
+		for(var i=0; i<num.length; i++) {
+			num[i] = parseInt(num[i]);
+		}
+		for(var i=0; i<x_mean.length; i++) {
+			x_mean[i] = parseFloat(x_mean[i]);
+		}
+		for(var i=0; i<y_mean.length; i++) {
+			y_mean[i] = parseFloat(y_mean[i]);
+		}
+		for(var i=0; i<x_var.length; i++) {
+			x_var[i] = parseFloat(x_var[i]);
+		}
+		for(var i=0; i<y_var.length; i++) {
+			y_var[i] = parseFloat(y_var[i]);
+		}
+		for(var i=0; i<cor_coe.length; i++) {
+			cor_coe[i] = parseFloat(cor_coe[i]);
+		}
+		component_num = parseInt(in_component_num.value);
+
+		if(CheckParam(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num) == 0) {
+			// ボタン
+			g_state[0] = state;
+			document.getElementById('set').value = "リセット";
+			// データをキャンバスに描画
+			MultiGaussPlot(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num);
+			// データ生成に用いたパラメータを描画
+			WriteCreateParam(num, x_mean, y_mean, x_var, y_var, cor_coe, component_num);
+			// 混合ガウスモデルのインスタンスを生成
+			g_gmm = new GMM(component_num, g_x);
+			// コンポーネント数に応じて配色を決定
+			g_color = new CreateColor(component_num);
+			// 推定した値（初期値）を描画
+			WriteEstimatedParam(g_gmm.pi, g_gmm.mu, g_gmm.sigma);
+			// 等高線（初期値）を描画
+			ContourPlot(g_gmm.mu, g_gmm.sigma);
+		}
+		else {
+			alert("不正な値です");
+		}
+	}
+	else {
+		g_state[0] = 0;
+		document.getElementById('set').value = "セット";
+		Initialize('canvas_1');
+	}
+}
+
+//===========================================
+// EMアルゴリズムを用いた混合ガウスモデルの最尤推定
+//===========================================
+function Learning(state)
+{
+	if((g_state[1] != state) && (g_state[0] != 0)) {
+		if(state != 0) {
+			g_state[1] = state;
+			document.getElementById('learning').value = "学習停止";
+		}
+		g_gmm.e_step();
+		g_gmm.m_step();
+		// 描画処理
+		g_context.clearRect(0, 0, g_canvas.width, g_canvas.height);
+		TicksSet(g_context);
+		g_color.data_color_set(g_gmm.r);
+		for(var i=0; i<g_x.length; i++) {
+			DataPlot(g_context, g_x[i], 2, g_color.data[i])
+		}
+		//Plot(g_context, g_x, 2, 'rgba(127,127,127,1.0)');
+		ContourPlot(g_gmm.mu, g_gmm.sigma);
+		WriteEstimatedParam(g_gmm.pi, g_gmm.mu, g_gmm.sigma);
+		setTimeout('Learning(0)', 100);
+	}
+	else {
+		g_state[1] = 0;
+		document.getElementById('learning').value = "学習開始";
+		clearTimeout();
+	}
+}
+
+//-->
+</script>
+<noscript>
+JavaScript対応ブラウザで表示してください
+</noscript>
+</head>
+<body onload="Initialize('canvas_1')">
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+					<p class="chapter8">混合ガウスモデル（GMM: Gaussian Mixture Model）</p>
+
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">混合ガウスモデル（GMM）とは</p>
+						<span>&nbsp;&nbsp;GMMは混合モデルの一種で，ガウス分布の線形重ね合わせで表されるモデルです．十分な数のガウス分布を用い，線形結合する重みの係数と各分布の平均と共分散を調節すれば，ほぼどのような連続関数でも，任意の精度で近似することができます．
+						<br>&nbsp;&nbsp;GMMはその簡素さと柔軟性から，データマイニング，パターン認識，機械学習，統計的解析に広く応用されています．</span>
+					</div>
+
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo：入力分布の学習</p>
+						<span>&nbsp;&nbsp;【セット】ボタンで入力されたパラメータに応じてデータ（ガウス乱数）を生成します．データをセットした状態で【学習開始】ボタンを押すとGMMで推定を行います．
+						<br>&nbsp;&nbsp;【リセット】ボタンで入力分布と学習結果を初期化します．
+
+						<table>
+				<tr>
+					<td>
+						<canvas width="530" height="530" id="canvas_1">
+						canvasタグをサポートしたブラウザが必要です
+						</canvas>
+					</td>
+					<td>
+						<div id="div_1" style="font-size: 10pt;">
+						<form id="form_1" action="#">
+						<fieldset style="width: 500px; text-align: right;">
+						<legend>ガウス乱数の生成</legend>
+						<p><label>データ数（正の整数） : <input type="text" id="num" size="50" value="300,300,300,300,300"></label></p>
+						<p><label>xの平均 : <input type="text" id="x_mean" size="50" value="0.0,-5.0,5.0,-5.0,5.0"></label></p>
+						<p><label>yの平均 : <input type="text" id="y_mean" size="50" value="0.0,5.0,5.0,-5.0,-5.0"></label></p>
+						<p><label>x方向の分散（0＜x） : <input type="text" id="x_var" size="50" value="2.0,2.0,2.0,2.0,2.0"></label></p>
+						<p><label>y方向の分散（0＜x） : <input type="text" id="y_var" size="50" value="2.0,2.0,2.0,2.0,2.0"></label></p>
+						<p><label>相関係数（-1.0≦x≦1.0） : <input type="text" id="cor_coe" size="50" value="0.0,-0.8,0.8,0.8,-0.8"></label></p>
+						</fieldset>
+						<p><label>学習に用いるコンポーネント数（正の整数） : <input type="text" id="component_num" size="10" value="5"></label></p>
+						<p><input type="button" id="set" value="セット" onclick="SetParam(1)">
+						<input type="button" id="learning" value="学習開始" onclick="Learning(1)"></p>
+						</form>
+						<fieldset id="create_value" style="text-align: center;">
+						<legend>生成した値（理想値）</legend>
+						</fieldset><br>
+						<fieldset id="estimated_value" style="text-align: center;">
+						<legend>推定した値</legend>
+						</fieldset><br>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+
+						&nbsp;&nbsp;このデモではGMMに2次元座標データを与えて学習させています．
+						<br>&nbsp;&nbsp;データはどのコンポーネントに所属するかという事後確率に応じて色付けされます．
+						<br>&nbsp;&nbsp;コンポーネントとコンポーネントの境界付近は，
+						<br>&nbsp;&nbsp;事後確率が均等に割り振られるので，コンポーネント間の中間色となります．
+
+						<br>&nbsp;&nbsp;学習初期は分散が大きく推定されますが，
+						<br>&nbsp;&nbsp;学習が進むにつれ，収束していく様子が分かると思います．
+						<br>&nbsp;&nbsp;生成するデータのコンポーネント数と学習に用いるコンポーネント数を等しくすると
+						<br>&nbsp;&nbsp;ほぼ理想どおりの結果に収束してくれます．
+
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<!--<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink01" title="">混合ガウスモデル（GMM）とは</a></li>
+						<li><a href="#pageLink02" title="">Demo：入力分布の学習</a></li>
+					</ul>
+				</div>-->
+				<!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>

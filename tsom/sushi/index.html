@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>TensorSOM2Viewer</title>
+  <script src="./js/d3/d3.v3.min.js" charset="utf-8"></script>
+  <script src="./js/d3/queue.v1.min.js"></script>
+  <script src="./js/d3/d3.hexbin.v0.min.js"></script>
+  <style>
+    div { background-color: #EEE;}
+    svg { background-color: #FFF; border: 1px solid black;}
+  </style>
+</head>
+<body>
+  <div id="map" style="display: flex; flex-direction: row;">
+    <div id="map1" class="map">
+      回答者マップ: <span class="message"></span>
+      <br>
+      <svg></svg><br>
+      <label for="m1u"><input id="m1u" class="uradio" type="radio" name="radio1">U-Matrix<br></label>
+      <label for="m1c"><input id="m1c" class="cpradio"  type="radio" name="radio1" checked="checked">Score(絶対値)<br></label>
+      <label for="m1cr"><input id="m1cr" class="cpradior"  type="radio" name="radio1">Score(相対値)<br></label>
+    </div>
+    <div id="map2" class="map">
+      寿司マップ: <span class="message"></span>
+      <br>
+      <svg></svg><br>
+      <label for="m2u"><input id="m2u" class="uradio" type="radio" name="radio2">U-Matrix<br></label>
+      <label for="m2c"><input id="m2c" class="cpradio"  type="radio" name="radio2" checked="checked">Score(絶対値)<br></label>
+      <label for="m2cr"><input id="m2cr" class="cpradior"  type="radio" name="radio2">Score(相対値)<br></label>
+    </div>
+  </div>
+  <script src="./js/tsom2-sushi16.min.js"></script>
+
+</body>
+</html>

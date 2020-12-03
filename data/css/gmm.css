@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+body {
+	background-color: #ffffff;
+}
+
+h1,h2,h3,h4 {
+	border: 0px solid #ff000f;
+	border-bottom-width: 2px;
+	padding: 0.1em;
+	margin-top:  20px;
+	margin-left: 0px;
+	color: #000000;
+}
+
+h1 {
+	margin-top: 0.5em;
+	border-bottom-width: 2px;
+	font-size: large;
+}
+
+h2 {
+	margin-right: 0%;
+	margin-bottom: 20;
+	font-size: smaller;
+}
+
+h3 {
+	margin-right: 30%;
+	font-size: smaller;
+}
+
+h4 {
+	margin-right: 50%;
+	font-size: smaller;
+}
+
+a {
+	color: #0000ff;
+}
+
+p {
+	line-height:1.0;
+	color: #000000
+}
+
+ul {
+	line-height: 1.2em;
+}
+
+li {
+	line-height:2.0;
+	color: #000000;
+}

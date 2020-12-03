@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+					<p class="chapter8">自己組織化マップ（SOM：Self-Organizing Map）</p>
+					<a id="pageLink00" name="pageLink00"></a>
+						<p class="chapter17">SOMドキュメント</p>
+						（2017年6月に更新）<br>
+						<font color="red"><b>SOMのドキュメントを公開しました！下の解説よりも体系的に詳しく解説しています．ぜひご覧ください．</b></font><br>
+						<a href="SOMtext.pdf" title="">自己組織化マップ（SOM）ドキュメント </a><br><br>
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">SOMとは</p>
+						<span>&nbsp;&nbsp;SOMはニューラルネットワークの一種で与えられた入力情報の類似度をマップ上での距離で表現するモデルです．技術が発達した現代では複雑な情報が数多く存在します．
+						しかしそのような高次元データを人間が瞬時に理解することは困難です．<br>&nbsp;&nbsp;SOMは高次元データの中に存在する傾向や相関関係の発見などに応用することができ，人間が高次元データを視覚的に理解する手助けを行ってくれます．
+						<br>&nbsp;&nbsp;SOMの特徴を一言であげるとすれば様々な高次元データを予備知識なし（教師なし）にクラスタリングできる点にあります．またこれが自己組織化といわれる所以です．<br>&nbsp;&nbsp;SOMは主にデータマイニングの１手法として応用され，
+						データの分類，視覚化，要約などを得意としています．現在ではプロセス解析，制御，検索システム，さらには経営のための情報分析など実社会において重要な分野へ応用されています．</span>
+					</div>
+
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">SOMの構造</p>
+						<span>&nbsp;&nbsp;SOMは規則的に配置された複数のユニットから構成されます．ここではユニットを2次元格子状に並べた2次元SOMを示していますが，この他にもユニットを直線状に並べた1次元SOM，立体的に並べた3次元SOM，さらには4次元以上に並べることもできます．
+						<br>&nbsp;&nbsp;通常頻繁に用いられるのは1次元や2次元までの人間が見やすい次元のマップです．<br>
+
+						<div align="center">
+						<img src="img/som/som_01.jpg" alt="" hspace="" vspace="20" />
+						<h2>2次元SOM</h2><br>
+						</div>
+
+						<br>&nbsp;&nbsp;SOMの各ユニットは入力ベクトルと同次元の参照ベクトルを持っています．
+						<br>&nbsp;&nbsp;SOMは入力ベクトルを参照ベクトルと比較し，入力ベクトルと一番近い参照ベクトルを持つユニットのマップ上での座標へ変換します．この操作のことを写像といい，SOMは入力ベクトルが存在するベクトル空間からユニットが配置されるマップ空間へ入力ベクトルを写像します．また各ユニットが持つ参照ベクトルはマップ空間からベクトル空間への逆写像となります．
+
+						<div align="center">
+						<img src="img/som/som_02.jpg" alt="" hspace="" vspace="20" />
+						<h2>ベクトル空間からマップ空間への写像</h2><br>
+						</div>
+
+						&nbsp;&nbsp;SOMはベクトル空間上での入力ベクトル同士の関係性が写像されたマップ空間上でも保たれるように，自分自身で学習を行います．つまりSOMは，教師なし学習によってベクトル空間からマップ空間への同相写像を獲得できるのです．
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">SOMの学習</p>
+						<span>&nbsp;&nbsp;SOMに入力ベクトルが与えられると入力ベクトルに最も近い参照ベクトルを持つユニットが勝者ユニットとなります．
+						このときマップ上で勝者ユニットの近くに位置するユニットほど，入力ベクトルに対して強く学習する権利を獲得し，その強さに応じて参照ベクトルを入力ベクトルへと近づけるように学習します．
+						このときの学習の強さは勝者ユニットが一番強く，マップ上での位置が勝者ユニットから離れていくほど弱くなります．<br>
+
+						<br>&nbsp;&nbsp;このような参照ベクトルの更新を色々な入力ベクトルに対して繰り返していくと，ベクトル空間上での入力ベクトル同士の関係性を保存したマップを得ることができます．<br>
+
+						<br>&nbsp;&nbsp;また，SOMの学習法には大きく分けてOnline-LearningとBatch-Learningがあります．それぞれにメリットとデメリットがあるので場合によって使い分けが必要です．<br><br>
+
+						＜Online-Learning＞
+						<br>&nbsp;&nbsp;SOMには入力ベクトルが1つずつ与えられ，そのつど参照ベクトルの更新を行います．適時入力されたデータのみに対して学習を行えばよいので，Batch-Learningと比べて1回の学習にかかる時間的なコストやメモリ容量などの点において優れています．
+						<br>&nbsp;&nbsp;また学習初期にデータが揃っておらず，データを収集しながら学習を行う場合にOnline-Learningは適しています．<br>
+
+						<br>&nbsp;&nbsp;一方で，1回の学習で1個のデータに対してのみ学習を行うので，学習で更新されるマップには特定のデータの影響が強く残ります．そのためOnline-Learningで得られるマップには偏りが生じることがあります．<br><br>
+
+						＜Batch-Learning＞
+						<br>&nbsp;&nbsp;用意された入力ベクトルの集合を一度に与えて学習を行います．1回の学習で全ての入力ベクトルが考慮された形で参照ベクトルの更新を行うため，安定した学習が期待でき，バランスのとれたマップを獲得することができます．<br>
+
+						<br>&nbsp;&nbsp;しかしこの場合には，入力データが全て揃っていることが前提となっているため，学習時にデータが揃えられない場合にはBatch-Learningは適していません．また入力データを全て記憶しておかなければならないので，使用メモリ量などの点においてOnline-Learningに劣ります．
+
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink04" name="pageLink04"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo：入力分布の学習</p>
+						<span>&nbsp;&nbsp;Learnボタンで学習開始，もう一度押すとStopです．<br>
+						&nbsp;&nbsp;Resetボタンを押すと入力分布も変わります．<br>
+						<table align="center">
+							<tr>
+								<td colspan="1" style="text-align:center;">
+									<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="som_online" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="300" height="340">
+										<param name="movie" value="som_online.swf" />
+										<param name="quality" value="high" />
+
+										<param name="bgcolor" value="#ffffff" />
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/som/som_online.swf" name=som_online quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="300" height="340" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+									</object>
+								</td>
+								<td colspan="1" style="text-align:center;">
+									<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="som_batch" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="300" height="340">
+										<param name="movie" value="som_batch.swf" />
+										<param name="quality" value="high" />
+										<param name="bgcolor" value="#ffffff" />
+
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/som/som_batch.swf" name=som_batch quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="300" height="340" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+									</object>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									Online-Learning SOM
+								</td>
+								<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									Batch-Learning SOM
+								</td>
+							</tr>
+						</table>
+						&nbsp;&nbsp;このデモでは2次元SOMに2次元座標データを与えて学習させています．学習データを青の点，各ユニットが獲得した参照ベクトルを黄色の点で示し，マップ上で隣接するユニットの間を線でつないでいます．
+						<br>&nbsp;&nbsp;最初は絡まりあったマップだったものが学習によってきれいに広がっていく様子が分かると思います．特にBatch-Learning SOMは学習の初期のうちから均質なマップが得られます．
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink05" name="pageLink05"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo：巡回セールスマン問題への適用</p>
+						<span>&nbsp;&nbsp;巡回セールスマン問題とは与えられた全ての点をできるだけ短く周ることのできるルートを探すという問題です．
+
+						<table align="center">
+								<tr>
+									<td colspan="1" style="text-align:center;">
+										<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="som_tsp" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="380" height="400">
+										<param name="movie" value="som_tsp.swf" />
+										<param name="quality" value="high" />
+
+										<param name="bgcolor" value="#ffffff" />
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/som/som_tsp.swf" name=som_tsp quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="380" height="400" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+										</object>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									リングSOMの巡回セールスマン問題への適用
+								</td>
+							</tr>
+						</table>
+
+						<br>&nbsp;&nbsp;全ての点を周るルートのパターンは点が増えれば増えるほど爆発的に増えていきます．全てのパターンを比較して最短ルートを探すのはとても時間がかかるのですが，SOMを使ってまぁまぁ悪くないルートを短い時間で探すことができます．
+
+
+						</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink00" title="">SOMドキュメント</a></li>
+						<li><a href="#pageLink01" title="">SOMとは</a></li>
+						<li><a href="#pageLink02" title="">SOMの構造</a></li>
+						<li><a href="#pageLink03" title="">SOMの学習</a></li>
+						<li><a href="#pageLink04" title="">Demo：入力分布の学習</a></li>
+						<li><a href="#pageLink05" title="">Demo：巡回セールスマン問題への適用</a></li>
+
+					</ul>
+				</div><!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>

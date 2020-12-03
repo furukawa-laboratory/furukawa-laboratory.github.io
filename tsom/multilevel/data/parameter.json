@@ -1,0 +1,12 @@
+{
+	"input": {
+		"mode1_name": "User",
+		"mode2_name": "Sushi",
+		"max_value": 10,
+		"min_value": 1
+	},
+	"parameter": {
+		"unit_num_x": 10,
+		"unit_num_y": 10
+	}
+}

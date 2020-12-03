@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+					<p class="chapter8">モジュラーネットワーク型自己組織化マップ（mnSOM：modular network SOM）</p>
+
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">mnSOMとは</p>
+						<span>&nbsp;&nbsp;mnSOMは<a href="./som.html">SOM</a>を一般化したモデルとして提案されたモデルで，SOMの応用範囲を更に広げる可能性を秘めています．<br>&nbsp;&nbsp;SOMはベクトルデータの集合を自己組織的に低次元空間へマップする装置でした．
+						したがってユーザーが目的の対象物をSOMで解析したいと思うのなら，事前に解析対象をベクトルとして表現しておかなければなりません．
+						<br>&nbsp;&nbsp;このような問題を解決し，SOMの応用範囲を一気に広げるのがmnSOMです．
+						<div align="center">
+						<img src="img/mnsom/mnsom_01.jpg" alt="mnSOMのアーキテクチャ" hspace="" vspace="20" />
+						<h2>mnSOMのアーキテクチャ</h2><br>
+						</div>
+						&nbsp;&nbsp;mnSOMは機能モジュールと呼ばれる交換可能なパーツの集合体で,この機能モジュールを交換することで多様なバリエーションを生み出すことができます．
+
+						<div align="center">
+						<img src="img/mnsom/mnsom_02.jpg" alt="目的に合わせてモジュールを変更できる" hspace="" vspace="20" />
+						<h2>目的に合わせてモジュールを変更できる</h2><br>
+						</div>
+
+						&nbsp;&nbsp;このようなモジュール構造の採用によって，ユーザーは目的に合わせて機能モジュールを選んだりデザインすることが可能になり，ユーザーの自由度を飛躍的に高めることができるようになりました．</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">mnSOMのコンセプト</p>
+						<span>&nbsp;&nbsp;SOMの構造は参照ベクトルユニットが規則的に配置されたものです．mnSOMはそれらの参照ベクトルユニットをニューラルネットワークなどのモジュールに置き換えたものです．
+						<br>&nbsp;&nbsp;他にもこのモジュールにはコントローラや信号処理フィルタなどを用いることもできます．<br>
+
+						<div align="center">
+						<p><td><img src="img/mnsom/mnsom_03.jpg" alt="SOMとmnSOM" hspace="" vspace="20" /></td></p>
+						<h2>SOMとmnSOM</h2><br>
+						</div>
+
+						&nbsp;&nbsp;多層パーセプトロン（MLP）をモジュールとするmnSOMでは，個々のモジュールは教師あり学習をする一方，ネットワーク全体としては自己組織的に機能を分担します．
+						&nbsp;&nbsp;SOMにおいて近い参照ベクトルを持つユニットがマップ上で近くに配置されるように，mnSOMでは似た機能（MLPの場合は関数）を持つモジュールが近くに配置されます．
+
+						<div align="center">
+						<p><td><img src="img/mnsom/mnsom_04.jpg" alt="MLPをモジュールとしたmnSOMがつくる”関数”のマップ" hspace="" vspace="20" /></td></p>
+						<h2>MLPをモジュールとしたmnSOMがつくる”関数”のマップ</h2><br>
+						</div>
+						&nbsp;&nbsp;このような拡張をSOMにもたらす一方で，アルゴリズムの基本骨格はSOMと全く変わりません．したがってこれまでのSOMに関する研究結果をそのままmnSOMにも当てはめることができます．
+						<br>&nbsp;&nbsp;例えばSOMのバリエーションには平面SOMや球面SOM，成長型SOMなど多くのものがありますが，これはそのままmnSOMにも取り入れることが可能です．
+						<br>&nbsp;&nbsp;また厳密にいえば，mnSOMはSOMのバリエーションと捉えるよりもむしろ，SOMを一般化したものとして考えることができます．
+						mnSOMのモジュールとしてヘブ学習をおこなうユニットを選べば，そのmnSOMはそのまま従来のSOMと同じものと考えることができるからです．
+						<br>&nbsp;&nbsp;つまりSOMの方がmnSOMのバリエーションの1つであり，mnSOMは従来のSOMをも包含する広い概念として捉えることができます．</span>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">mnSOMの応用事例</p>
+						<ul>
+							<li>・&nbsp;&nbsp;MLP-mnSOMによる気象マップの獲得</li>
+							<li>・&nbsp;&nbsp;適応制御への応用</li>
+							<li><a href="./som2.html">・&nbsp;&nbsp;SOM自身をモジュールとするmnSOM</a>（SOM<sup>2</sup>）</li>
+						</ul>
+					</div>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink01" title="">mnSOMとは</a></li>
+						<li><a href="#pageLink02" title="">mnSOMのコンセプト</a></li>
+						<li><a href="#pageLink03" title="">mnSOMの応用事例</a></li>
+					</ul>
+				</div><!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>

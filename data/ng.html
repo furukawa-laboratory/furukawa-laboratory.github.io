@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Furukawa Laboratory</title>
+<!-- <meta name="keywords" content="キーワード" /> -->
+<meta name="robots" content="index,follow" />
+<!-- <meta name="description" content="サイトの説明" /> -->
+<meta name="Copyright" content="design now" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="../favicon.ico" type="image/vnd.microsoft.icon" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link href="../share/css/set/import.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../share/css/share.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../data/css/index.css" rel="stylesheet" type="text/css" media="all" />
+<script type='text/javascript' src='../share/js/jquery.js'></script>
+<script type='text/javascript' src='../share/js/scroll.js'></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header" class="clearfix">
+			<a href="../index.html" title=""><img src="../index/img/logo.png" alt="" /></a>
+			<ul id="gNavi" class="clearfix">
+				<li class="firstItem"><a href="../contact.html" title="">お問い合わせ</a></li>
+				<li><a href="../blog.html" title="">ブログ</a></li>
+				<li><a href="../data.html" title="">公開資料</a></li>
+				<li><a href="../publications.html" title="">業績リスト</a></li>
+				<li><a href="../admission.html" title="">進学希望の皆様へ</a></li>
+				<li class="lastItem"><a href="../myresearch.html" title="">研究紹介</a></li>
+			</ul><!-- ul#gNavi END -->
+		</div><!-- div#header END -->
+		<div id="wrapBg">
+			<div class="wrapBox clearfix">
+				<div id="mainContents">
+					<a id="pageLink01" name="pageLink01"></a>
+					<p class="chapter8">ニューラルガス（NG：Neural Gas）</p>
+
+					<a id="pageLink01" name="pageLink01"></a>
+					<div class="txtTempSet txtTemp1">
+						<p class="chapter17">ニューラルガス（NG）とは</p>
+						<span>&nbsp;&nbsp;ニューラルガス（NG）はベクトル量子化に用いられるネットワークで，<a href="som.html">SOM</a>とよく似たアルゴリズムで動作します．
+						<br>&nbsp;&nbsp;ベクトル量子化とは多数の入力ベクトルの集合を比較的少ないユニット（参照ベクトル）で近似することをいいます．NGはSOMと同様に教師なし学習によって自己組織的にベクトル量子化をおこないます．<br>
+						</span>
+
+						<div align="center">
+						<img src="img/ng/ng_01.jpg" alt="" hspace="" vspace="20" />
+						<h2>SOMとニューラルガス</h2><br>
+						</div>
+
+						<span>&nbsp;&nbsp;SOMとの違いはネットワークの構造にあります．
+						SOMではマップを作るユニット間の隣接関係が固定されていました．それに対してNGではユニット間の隣接関係に規制がありません．
+						これによりNGの各ユニットは独立して動くことができ，ベクトル量子化として機能します．
+						</span>
+					</div>
+
+					<a id="pageLink02" name="pageLink02"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">NGの学習</p>
+						<span>&nbsp;&nbsp;NGに入力ベクトルが与えられると入力ベクトルに最も近い参照ベクトルを持つユニットが勝者ユニットとなります．
+						SOMの場合には勝者ユニットからのマップ空間上での距離によって各ユニットの学習率が決定しました．
+						それに対してNGの場合には，入力ベクトルに対するベクトル空間上での距離のランキングによって
+						各ユニットの学習率が決まります．
+						つまり入力ベクトルから1番近い勝者ユニットが最も強く入力ベクトルに対して学習し，2番目，3番目とランキングが下位になるほど学習の強さは弱くなります．
+						<br>&nbsp;&nbsp;またSOMと同様に学習アルゴリズムにはOnline-LearningとBatch-Learningがあり，用途によって使い分けられます．<br>
+
+						</span>
+					</div>
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<div class="txtTempSet txtTemp1">
+					<p class="chapter17">Demo：SOMとの比較</p>
+						<span>Learnボタンで学習開始，もう一度押すとStopです．<br>
+						Resetボタンを押すと入力分布も変わります．<br>
+
+						<table align="center">
+							<tr>
+								<td colspan="1" style="text-align:center;">
+									<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="som_online" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="300" height="340">
+										<param name="movie" value="img/ng/som_ng.swf" />
+										<param name="quality" value="high" />
+
+										<param name="bgcolor" value="#ffffff" />
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/ng/som_ng.swf" name=som_online quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="300" height="340" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+									</object>
+								</td>
+								<td colspan="1" style="text-align:center;">
+									<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="som_batch" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab0" width="300" height="340">
+										<param name="movie" value="ng_01.swf" />
+										<param name="quality" value="high" />
+										<param name="bgcolor" value="#ffffff" />
+
+										<param name="allowScriptAccess" value="always" />
+										<embed src="img/ng/ng_01.swf" name=som_batch quality="high" allowScriptAccess="always" bgcolor="#ffffff" width="300" height="340" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+									</object>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									自己組織化マップ（SOM）
+								</td>
+								<td colspan="1" style="text-align:center;padding-bottom:0px;">
+									ニューラルガス（NG）
+								</td>
+							</tr>
+						</table>
+						<p>
+							<span>&nbsp;&nbsp;このデモでは2次元SOMとNGに2次元座標データを与えて学習させています．
+							SOMの場合には各ユニットが隣接するユニットに引っ張られていることが分かります．
+							これによってデータベクトルの存在しない場所にもユニットが配置されています．
+							それに対してNGの場合には，ほとんどのユニットがデータベクトルのいずれかの点を代表するものとなっています．<br>
+							<span>&nbsp;&nbsp;しかしこれはどちらのアルゴリズムが優秀であるかという問題ではありません．
+							どちらにもそれぞれの利点があり，やはりここでも問題に適したアルゴリズムを選択する必要があります．<br>
+						</p>
+
+						</span>
+					</div>
+
+
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+
+					<a id="pageLink03" name="pageLink03"></a>
+					<p class="chapter8"></p>
+					<ul class="bgList3">
+						<li><a href="../data.html" title="">公開資料 TOP</a></li>
+					</ul>
+
+				</div><!-- div#mainContents END -->
+				<div id="leftContents">
+					<ul id="subNavigation" class="bgList4">
+						<li><a href="#pageLink01" title="">ニューラルガス（NG）とは</a></li>
+						<li><a href="#pageLink02" title="">NGの学習</a></li>
+						<li><a href="#pageLink03" title="">Demo：SOMとの比較</a></li>
+					</ul>
+				</div><!-- div#leftContents END -->
+			</div><!-- div#wrapBox END -->
+		</div><!-- div#wrapBg END -->
+		<div id="footer">
+			<p id="copyright">Copyright (C) f-lab. All Rights Reserved.</p>
+		</div><!-- div#footer END -->
+	</div><!-- div#wrapper -->
+</body>
+</html>

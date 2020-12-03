@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>TensorSOM3Viewer</title>
+  <script src="./js/jquery/jquery-1.11.1.min.js"></script>
+  <script src="./js/d3/d3.v3.min.js" charset="utf-8"></script>
+  <script src="./js/d3/queue.v1.min.js"></script>
+  <script src="./js/d3/d3.hexbin.v0.min.js"></script>
+  <style>
+    div { background-color: #AAA;}
+    svg { background-color: #FFF;}
+    p { margin: 0px; font-size: 20px; background-color: #CCC; }
+  </style>
+</head>
+<body>
+
+  <div style="display: flex; flex-direction: row;">
+    <div id="map1">
+      <p>Users Map</p>
+      <input class="uradio" type="radio" name="radio1">U-Matrix</input>
+      <input class="cpradio"  type="radio" name="radio1" checked="checked">Component Plane</input>
+      <br>
+    </div>
+    <div id="map2">
+      <p>Beverages Map</p>
+      <input class="uradio" type="radio" name="radio2">U-Matrix</input>
+      <input class="cpradio"  type="radio" name="radio2" checked="checked">Component Plane</input>
+      <br>
+    </div>
+    <div id="map3">
+      <p>Situations Map</p>
+      <input class="uradio" type="radio" name="radio3">U-Matrix</input>
+      <input class="cpradio" type="radio" name="radio3" checked="checked">Component Plane</input>
+      <br>
+    </div>
+  </div>
+  <div style="border: black solid 1px; background: #FFF;">
+    <ul>
+      <li>Maps can be colored by two ways.
+        <ul>
+          <li>U-Matrix: Cluster borders are indicated by red regions.</li>
+          <li>Component Plane: The high/low score regions are indicated by red/blue respectively.</li>
+        </ul>
+      </li>
+      <li>By clicking the mouse button on a map, you can specify the conditioning point for each map.
+        <ul>
+          <li>Conditioning points are indicated by circles.</li>
+          <li>When one or more maps are conditioned, the other maps are colored with respect to the conditioning point. For example, if a point in the user map is selected, then the beverage map and the situation map are colored according to the scores of the selected users.</li>
+          <li>Click the conditioning point again, then it becomes unselected.</li>
+          <li>By dragging mouse cursor with pressing the left button, you can move the conditioning point continuously.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <script src="./js/tsom.min.js"></script>
+
+</body>
+</html>
