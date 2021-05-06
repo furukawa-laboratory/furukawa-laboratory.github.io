@@ -144,7 +144,10 @@ div#mainContents{
 
 /* 新着情報 */
 div#newTopics{
-	float: left;
+	/* float: left; */
+	width:40%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 	div#newTopics strong{
@@ -217,14 +220,23 @@ div#outlineBox{
 	}
 
 /* バナーエリア */
-div#bannerBox{
-	float: right;
-	width: 250px;
+div#bannerContainer{
+	display: flex;
 }
 
-	div#bannerBox ul{}
-	div#bannerBox ul li{
-		margin-bottom: 15px;
-	}	
 
+div#bannerBox{
+	float: right;
+	/* width: 250px; */
+}
+
+div#bannerBox ul{}
+div#bannerBox ul li{
+	margin-bottom: 15px;
+}	
+
+div#tweetBox{
+	/* float: left; */
+	/* width: 250; */
+}
 

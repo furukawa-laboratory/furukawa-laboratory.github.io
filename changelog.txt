@@ -1,3 +1,0 @@
-./tmp/sezinfo/data/sample.js
-ここを更新する．
-おそらく3つまで蓄えられる．
