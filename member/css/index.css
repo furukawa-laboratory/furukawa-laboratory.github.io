@@ -27,6 +27,14 @@ div#leftContents{
 	position:fixed;
 	list-style-type:none;
 }
+.box1{
+	width: 220px;
+	float: left;
+}
+.box2{
+	width: 480px;
+	float: left;
+}
 
 ul#subNavigation{
 	font-size: 14px;
