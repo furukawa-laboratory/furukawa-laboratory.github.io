@@ -32,7 +32,7 @@
     //
 
     // 参照テンソル読み込み(ひとまずD=1)
-    var dataSet = dataFile.replace(/\n+$/g,'').split("\n\n\n");
+    var dataSet = dataFile.replace(/\r/g,"").replace(/\n+$/g,'').split("\n\n\n");
     for(i=0; i<dataSet.length; i++){
       dataSet[i] = dataSet[i].split("\n\n");
       for(j=0; j<dataSet[i].length; j++){
@@ -49,7 +49,7 @@
     // 学習率読み込み
     var alpha = [alphaDataFile1,alphaDataFile2,alphaDataFile3];
     alpha.forEach(function(d,i){
-      alpha[i] = d.replace(/\n+$/g,'').split("\n");
+      alpha[i] = d.replace(/\r/g,"").replace(/\n+$/g,'').split("\n");
       alpha[i].forEach(function(x,j){
         alpha[i][j] = x.split(" ");
         alpha[i][j].forEach(function(y,k){
@@ -62,7 +62,7 @@
     var attributeBinaryDataSets = [attrDataFile1, attrDataFile2, attrDataFile3];
 
     attributeBinaryDataSets.forEach(function(x,i){
-      attributeBinaryDataSets[i] = x.replace(/\n+$/g,'').split("\n");
+      attributeBinaryDataSets[i] = x.replace(/\r/g,"").replace(/\n+$/g,'').split("\n");
       attributeBinaryDataSets[i].forEach(function(y,j){
         attributeBinaryDataSets[i][j] = y.split(" ");
         attributeBinaryDataSets[i][j].forEach(function(z,k){
@@ -105,7 +105,7 @@
     var force = [d3.layout.force(), d3.layout.force(), d3.layout.force()];
 
     // 次元モードのラベル読み込み
-    var labeldim = dimFile.replace(/\n+$/g,'').split("\n");
+    var labeldim = dimFile.replace(/\r/g,"").replace(/\n+$/g,'').split("\n");
     var dimNum = labeldim.length;
     labeldim.unshift("全ての次元");
     var focusdim = -1; // -1:全ての次元を着目
