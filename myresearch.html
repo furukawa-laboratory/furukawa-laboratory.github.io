@@ -68,47 +68,56 @@
 					<p class="chapter8">現在取り組んでいる研究テーマ</p>
 					<a id="pageLink01" name="pageLink01"></a>
 						<ul class="borderList1">
-							<li><p class="chapter_big">1．　マルチな学習</p></li>
-							　<p class="chapter_gakusei">　わたしたち人間は、さまざまな感覚入力や記憶を統合しつつ、同時にさまざまな角度から分析し、理解できます。統合的であり、同時に多視点的です。本研究室では、さまざまな角度から集められたデータを統合的にモデリングし、さらにさまざまな視点から解析できるアルゴリズムの研究をしています。複雑なビッグデータ解析を丸ごと理解できる強力なアルゴリズム開発に取り組んでいます。
-							</p>
-
-							<p class="chapter_senmon">
-							　本研究室では、潜在空間モデルを利用した非線形テンソル解析法を開発しています。また複数の非線形テンソル解析を組み合わせることで、複雑な構造を持つデータを統合的に解析し，可視化するツールも実現しています。
-							（非線形テンソル解析、マルチモード解析、マルチビュー学習、多面的可視化）
-							</p>
-							<br>
-							fig：風景画像の同時解析
-							<br>
-							<div align="center">
-								<img src="myresearch/img/introduction/top/intro2.png"/>
-								<figcaption><p class="chapter_small">テンソルSOMによる風景画像の同時解析．回答者の分析，風景画像の分析，印象の分析をひとつの統合されたモデル上で行なえます。テンソルSOMはマーケティングのデータ分析にも応用されています。</p></figcaption>
-							</div>
-
-							<br>
-
-
+							<li><p class="chapter_big">1．　学習原理の数理的究明</p></li>
+								<p class="chapter_gakusei">◆多様体モデリング<br>
+									　データ分布は固有の《かたち》を持っています。
+									その《かたち》を「多様体」としてモデリングします。
+									データの《かたち》から、データに潜む《本質》を見つけます。
+									多様体モデリングはデータから知識を発見する基盤となる学習原理と考えています。
+									</p>
+									<div align="center">
+										<img src="myresearch/img/20210729/1-1.png" width="700">
+									</div>
+								<br><br>
+								<p class="chapter_gakusei">◆マルチ多様体モデリングによるメタ学習<br>
+										　さまざまなデータ集合を同時に学習することで、普遍的なルールを発見し、同時にデータそれぞれの個性も見つけます。
+										たとえば、さまざまな人の顔画像を多様体モデリングすることで、表情やポーズの普遍的なルールと、ひとりひとりの個性を見つけられます
+										その基礎は、データとモデルの対話による「隠れた本質」の推定です。
+									</p>
+									<div align="center">
+										<video src="myresearch/img/20210729/1-2.mp4" width="700" loop autoplay muted></video>
+										<img src="myresearch/img/20210729/1-3.png" width="700">
+									</div>
+									<br>fig：メタ多様体モデリングの数理<br><br>
+									<div align="center">
+										<img src="myresearch/img/20210729/1-4.png" width="700">
+									</div>
+								<br><br>
+								<p class="chapter_gakusei">◆マルチタスク学習・メタモデリングの数理<br>
+									　複数のデータを同時に学習することで普遍的ルール（メタモデル）を発見する計算原理の研究もしています。
+									</p>
+									<div align="center">
+										<video src="myresearch/img/20210729/1-5.mov" width="500" loop autoplay muted></video>
+									</div>
 						</ul>
 						<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
 
 						<a id="pageLink02" name="pageLink02"></a>
 						<ul class="borderList1">
-							<li><p class="chapter_big">2．　メタな学習</p></li>
-							　<p class="chapter_gakusei">　わたしたち人間は、データを言われるがまま学習する学習機械ではありません。「これは学習する必要があるだろうか？」、「前回と今回の学習の違いは？」など、ひとつ上の視点から考えることができます。それを通してより深い理解や、普遍的な法則性を見つけることができます。 本研究室では、このような人間の知能がどのようにアルゴリズムとして実現できるか解明したいと考えています。
-							</p>
-
-
-							<p class="chapter_senmon">　学習器の集合を学習する「メタ学習器」の実現を通して、高次の普遍的ルールや法則性を発見する学習理論の究明を目指しています。本研究室では多様体学習をファイバー束に拡張したマルチタスク多様体学習を基盤にして、高次知識獲得の学習原理の発見に取り組んでいます。
-
-							（教師なしマルチタスク学習、メタ学習、マルチレベル学習）
-							</p>
-
-							<br>fig：メタ学習による普遍的法則の発見<br>
-
-							<div align="center">
-								<img src="myresearch/img/introduction/top/intro3.png"/>
-								<figcaption><p class="chapter_small">別々のシステムから得られたデータから、共通する普遍的法則を見つける問題は不良設定問題で、簡単には解けません。私たちは、「学習器の集合を学習する」すなわちメタ学習のアプローチでこの難問に挑戦しています。</p></figcaption>
-							</div>
-
+							<li><p class="chapter_big">2．　知能の数理モデル研究</p></li>
+							　<p class="chapter_gakusei">知能を実現するための数理モデル研究に取り組んでいます。<br>
+								◆視点推定の数理モデル<br>
+								　データから観測した人の視点を推定したり，さらに自分の視点を推定する数理モデルの研究もしています。<br>
+								</p>
+								<div align="center">
+									<video src="myresearch/img/20210729/2-1.mp4" width="500" loop autoplay muted></video>
+								</div>
+							<br><br>
+							<p class="chapter_gakusei">◆アクティブラーニングの学習原理<br>
+								　データをみずから探しに行く「アクティブラーニング」は，AIにとっての好奇心とも言える学習原理です。<br>
+								<div align="center">
+									<video src="myresearch/img/20210729/2-2.mov" width="700" loop autoplay muted></video>
+								</div>
 							<br>
 							　
 
@@ -117,40 +126,52 @@
 
 						<a id="pageLink03" name="pageLink03"></a>
 						<ul class="borderList1">
-							<li><p class="chapter_big">3．　コミュニケーションの学習</p></li>
-							　<p class="chapter_gakusei">　わたしたち人間はコミュニケーションを通して、互いの共通点や違いを知ります。またそれぞれの役割などを自覚することもできます。本研究室では、コミュニケーションを解析するアルゴリズム開発を通して、コミュニケーションの本質を理解できる脳型知能の実現をめざしています。
-							</p>
-
-
-
-							<p class="chapter_senmon">　メタ学習や非線形テンソル解析の研究成果を利用して、コミュニケーション解析の研究に取り組んでいます。電子メールデータのトピック解析、コミュニティにおけるロール解析、スポーツチームのマルチグループ解析、教育現場におけるインタラクション分析などの研究に取り組んでいます。
-
-							（ドキュメント解析、コミュニティ解析、マルチグループ解析、インタラクション解析）
-							</p>
-
-							<br>fig：集団と個人の同時解析<br>
-
+							<li><p class="chapter_big">3．　人間の知的活動の数理モデリング</p></li>
+							<p class="chapter_gakusei">◆チームデータのモデリングとチーム編成支援<br>
+								　メンバー構成とチームのパフォーマンスの関係をモデリングし，チームのデータを解析し，チームの編成支援をします。
+								バスケットボールチームのデータに応用しました。
+						　	</p>
 							<div align="center">
-								<img src="myresearch/img/introduction/top/intro4.png"/>
-								<figcaption><p class="chapter_small">サッカーチームのチームカラーは、選手の平均値だけでは表現できません。さまざまな個性を持つ選手の集合として捉えてはじめて理解できます。私たちの手法は、個性を平均値に押しつぶすことなく集団をモデル化できます。また教育現場におけるコミュニケーション解析にも応用したいと考えています。</p></figcaption>
-							</div>
-
-							<br>
-							　
-							<br>fig：観察者の視点の推定<br>
-
+								<video src="myresearch/img/20210729/3-1.mov" width="700" loop autoplay muted></video>
+							</div>	
+							<p class="chapter_senmon">　メンバーとチームの関係をモデリングして、メンバー編成支援をします．
+							</p>
+							<br><br>
+							<p class="chapter_gakusei">◆ファッションデータの解析とコーディネート検索・推薦<br>
+								　ファッションも人間の興味深い知的活動のひとつです。
+								SNSに投稿されたコーディネート写真のデータをモデリングし，コーディネートの検索や推薦をするシステム開発の研究に取り組んでいます．
+							</p>
+							<br>fig：コーディネートの視覚的探索システム<br>
 							<div align="center">
-								<img src="myresearch/img/introduction/top/intro5.png"/>
-								<figcaption><p class="chapter_small">コミュニティでは、お互いに相手を理解しようとします。本研究室では、複数の観察者から得られたデータから観察者の視点を推定する研究を行っています。</p></figcaption>
+								<img src="myresearch/img/20210729/3-2.png" width="700">
 							</div>
-
-							<br>
-							　
+							<br><br>
+							<p class="chapter_gakusei">◆風景画像に対する感性解析<br>
+								　ファッションだけでなく，風景画像を用いて人間の感性データを解析する研究も取り組みました．
+							</p>
+							<div align="center">
+								<video src="myresearch/img/20210729/3-3.mp4" width="700" loop autoplay muted></video>
+							</div>	
+							<p class="chapter_senmon">　ひとりひとり違う感性を解析し、自動車デザインの分析に応用しました．
+							<br><br>
+							<p class="chapter_gakusei">◆文書データやコミュニケーションデータのモデリングと可視化<br>
+								　たくさんの文書や，ネットワーク上のコミュニケーションデータをモデリングし，どんなトピックがどんな人間関係の中でやり取りされているかをモデリングしたり，可視化したりします．
+							</p>
+							<br>fig：単語・文書の同時解析<br>
+							<div align="center">
+								<img src="myresearch/img/20210729/3-4.png" width="700">
+								<figcaption><p class="chapter_small">文書のトピックを可視化します．</p>
+							</div>
+							<br>fig：電子メール解析による役割の発見<br>
+							<div align="center">
+								<img src="myresearch/img/20210729/3-5.png" width="700">
+								<figcaption><p class="chapter_small">ネットワーク上の人間関係解析、幼児の行動モデリングにも取り組んでいます．</p>
+							</div>
 
 						</ul>
 						<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
 
-						<a id="pageLink04" name="pageLink04"></a>
+						<!-- <a id="pageLink04" name="pageLink04"></a>
 						<ul class="borderList1">
 							<li><p class="chapter_big">4．　「隠れた本質」の学習</p></li>
 							<p class="chapter_gakusei">　わたしたち人間は、与えられたデータを丸覚えするのではなく、データに潜む本質をうまく発見して知識に変えることができます。だからこそ、未知の状況でも知識を使って対処することができます。本研究室では、データに潜む「隠れた本質」を見つける学習アルゴリズムの開発と学習理論の研究に取り組んでいます。
@@ -183,7 +204,7 @@
 					<ul class="bgList3">
 						<li><a href="publications.html" title="">業績リスト</a></li>
 					</ul>
-					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p>
+					<p align="right"><a href="#header" title="△ページトップへ戻る">△ページトップへ戻る</a></p> -->
 
 
 				</div><!-- div#mainContents END -->
@@ -199,13 +220,13 @@
 						<li><a href="#pageLink2" title="">
 						現在取り組んでいる研究テーマ</a></li>
 						<li><a href="#pageLink01" title="">
-						1.マルチな学習</a></li>
+						1.学習原理の数理的究明</a></li>
 						<li><a href="#pageLink02" title="">
-						2.メタな学習</a></li>
+						2.知能の数理モデル研究</a></li>
 						<li><a href="#pageLink03" title="">
-						3.コミュニケーションの学習</a></li>
-						<li><a href="#pageLink04" title="">
-						4.「隠れた本質」の学習</a></li>
+						3.人間の知的活動の数理モデリング</a></li>
+						<!-- <li><a href="#pageLink04" title="">
+						4.「隠れた本質」の学習</a></li> -->
 						<li><a href="#pageLink3" title="">
 						本研究室の業績</a></li>
 					</ul>
